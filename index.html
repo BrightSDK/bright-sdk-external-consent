@@ -3,40 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consent Widget</title>
-    <script src="dist/consent.bundle.js"></script>
+    <title>External Consent for BrightSDK Apps</title>
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        #consent-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+        }
+        code {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            padding: 2px 4px;
+            font-size: 90%;
+        }
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 10px;
+            overflow-x: auto;
+        }
+        pre code {
+            border: none;
+            padding: 0;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div id="consent-wrapper"></div>
-    <script>
-        const consentDialog = ConsentModule.create("consent-wrapper", {
-            logo: "img/africa.png",
-            title: "<i>African Safari Screensaver</i>",
-            acceptButton: "img/epicplay_accept_btn.png",
-            backgroundColor: "#FBEFCF",
-            buttonColor: "#D36B2E",
-            buttonTextColor: "#FFF",
-            borderColor: "gray",
-            outlineColor: "#9DA9E8",
-            onAccept: () => console.log("Accepted"),
-            onDecline: () => console.log("Declined"),
-            onClose: () => console.log("Consent closed")
-        });
-        // Example: Show dialog on load
-        consentDialog.show();
-    </script>
+    <h1>External Consent for BrightSDK Apps</h1>
+
+    <h2>Overview</h2>
+    <p><strong>External Consent for BrightSDK Apps</strong> is a JavaScript module that provides a customizable consent dialog for applications integrating with BrightSDK. It allows users to grant or deny consent through a user-friendly interface.</p>
+
+    <h2>Installation</h2>
+    <p>Include the module in your project:</p>
+    <pre><code>import ConsentModule from 'path-to-module';</code></pre>
+
+    <h2>Usage</h2>
+    <p>To create and display the consent dialog:</p>
+    <pre><code>const consent = ConsentModule.create('target-element-id', {
+  logo: 'img/custom-logo.png',
+  backgroundColor: '#FFFFFF',
+  acceptButtonText: 'Agree',
+  declineButtonText: 'No Thanks',
+  onAccept: () => console.log('User accepted consent'),
+  onDecline: () => console.log('User declined consent')
+});
+
+consent.show();</code></pre>
+
+    <h2>API Reference</h2>
+
+    <h3><code>ConsentModule.create(targetId, options)</code></h3>
+    <p>Creates a new consent dialog instance.</p>
+
+    <h4>Parameters</h4>
+    <ul>
+        <li><code>targetId</code> (string, required) - ID of the DOM element where the dialog will be placed.</li>
+        <li><code>options</code> (object, optional) - Customization options for the consent dialog.</li>
+    </ul>
+
+    <h4>Options</h4>
+    <ul>
+        <li><code>logo</code> (string) - URL of the logo image.</li>
+        <li><code>qrCode</code> (string) - URL of a QR code image.</li>
+        <li><code>title</code> (string) - Title text of the dialog.</li>
+        <li><code>backgroundColor</code> (string) - Background color of the dialog.</li>
+        <li><code>accentColor</code> (string) - Accent color for buttons and highlights.</li>
+        <li><code>acceptButtonText</code> (string) - Text for the accept button.</li>
+        <li><code>declineButtonText</code> (string) - Text for the decline button.</li>
+        <li><code>onShow</code> (function) - Callback when the dialog is shown.</li>
+        <li><code>onAccept</code> (function) - Callback when the user accepts consent.</li>
+        <li><code>onDecline</code> (function) - Callback when the user declines consent.</li>
+        <li><code>onClose</code> (function) - Callback when the dialog is closed.</li>
+    </ul>
+
+    <h3>Methods</h3>
+
+    <h4><code>show()</code></h4>
+    <p>Displays the consent dialog and returns a promise that resolves when the dialog is closed.</p>
+    <pre><code>consent.show().then(() => console.log('Consent dialog closed'));</code></pre>
+
+    <h4><code>hide()</code></h4>
+    <p>Manually hides the consent dialog.</p>
+    <pre><code>consent.hide();</code></pre>
+
+    <h2>Events</h2>
+    <ul>
+        <li><code>onShow</code>: Triggered when the dialog appears.</li>
+        <li><code>onAccept</code>: Triggered when the user accepts.</li>
+        <li><code>onDecline</code>: Triggered when the user declines.</li>
+        <li><code>onClose</code>: Triggered when the dialog is closed.</li>
+    </ul>
+
+    <h2>Example</h2>
+    <pre><code>const consent = ConsentModule.create('consent-container', {
+  title: 'User Agreement',
+  backgroundColor: '#EEE',
+  onAccept: () => alert('Thank you for accepting!'),
+  onDecline: () => alert('You declined the consent.')
+});
+
+consent.show();</code></pre>
+
+    <h2>License</h2>
+    <p>This module is licensed under <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
 </body>
 </html>

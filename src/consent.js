@@ -1,6 +1,13 @@
 import "./styles.css";
 import qrBase64 from "./qr.png";
 
+/**
+ * Creates and manages the consent module for the application.
+ *
+ * @param {string} targetId - The ID of the DOM element where the consent module will be appended.
+ * @param {Object} [options={}] - Custom options for the consent module.
+ * @returns {Object} - An object with `show` and `hide` methods to control the visibility of the consent module.
+ */
 function createConsentModule(targetId, options = {}) {
     const defaultOptions = {
         logo: "img/logo.png",
@@ -24,10 +31,16 @@ function createConsentModule(targetId, options = {}) {
         onClose: () => console.log("Consent closed"),
     };
 
+    // Merge user-provided options with default options
     const settings = { ...defaultOptions, ...options };
     let container = null;
     let focusedIndex = 0;
 
+    /**
+     * Creates the consent module's DOM structure.
+     *
+     * @returns {Object} - Contains `show` and `hide` methods for managing the visibility of the consent module.
+     */
     function create() {
         if (container) return; // Prevent multiple instances
 
@@ -83,10 +96,14 @@ function createConsentModule(targetId, options = {}) {
             </div>
         `;
 
+        // Set the title of the consent module
         container.querySelector(".title").innerHTML = settings.title;
 
         const buttons = container.querySelectorAll(".button");
 
+        /**
+         * Updates the focus of buttons based on the currently focused index.
+         */
         function updateFocus() {
             buttons.forEach((btn, index) => {
                 btn.classList.toggle("selected", index === focusedIndex);
@@ -94,6 +111,9 @@ function createConsentModule(targetId, options = {}) {
             });
         }
 
+        /**
+         * Removes the consent module from the DOM and hides the parent element.
+         */
         function hide() {
             if (container && container.parentNode) {
                 container.parentNode.removeChild(container);
@@ -102,6 +122,11 @@ function createConsentModule(targetId, options = {}) {
         }
 
         return {
+            /**
+             * Shows the consent module and triggers callbacks.
+             *
+             * @returns {Promise} - Resolves when the consent module is closed.
+             */
             show: () => new Promise((resolve) => {
                 function cleanup() {
                     settings.onClose();
@@ -109,6 +134,7 @@ function createConsentModule(targetId, options = {}) {
                     resolve();
                 }
 
+                // Add event listeners for button clicks (if not in preview mode)
                 if (!settings.preview) {
                     buttons[0].addEventListener("click", () => {
                         settings.onDecline();
@@ -123,6 +149,11 @@ function createConsentModule(targetId, options = {}) {
                     });
                 }
 
+                /**
+                 * Handles keyboard interactions for navigation and selection.
+                 *
+                 * @param {KeyboardEvent} event - The keyboard event.
+                 */
                 function handleKeydown(event) {
                     if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
                         focusedIndex = event.key === "ArrowRight" ? 1 : 0;
@@ -151,6 +182,10 @@ function createConsentModule(targetId, options = {}) {
                 }
                 settings.onShow();
             }),
+
+            /**
+             * Hides the consent module.
+             */
             hide
         };
     }
@@ -158,6 +193,9 @@ function createConsentModule(targetId, options = {}) {
     return create();
 }
 
+/**
+ * Exposes the createConsentModule function globally if in a browser environment.
+ */
 if (typeof window !== "undefined") {
     window.ConsentModule = { create: createConsentModule };
 }
