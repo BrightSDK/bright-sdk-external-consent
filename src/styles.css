@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+.external-consent-container {
+    width: 855px;
+    height: 520px;
+    background-color: var(--background-color, #FBEFCF);
+    padding: 57px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    color: var(--text-color, #171717);
+    font-weight: 500;
+    position: relative;
+    z-index: 9999;
+}
+
+
+.external-consent-container .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.external-consent-container .header img {
+    width: 94px;
+    height: 94px;
+    border-radius: 10px;
+    margin-right: 25px;
+}
+
+.external-consent-container .title {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--accent-color, #D36B2E);
+    text-align: left;
+}
+
+.external-consent-container .body {
+    height: 134px;
+    align-self: stretch;
+    padding: 20px;
+    line-height: 28px;
+}
+
+.external-consent-container .text {
+    font-size: 17px;
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+.external-consent-container .text a {
+    font-size: 17px;
+    color: var(--outline-color, #9DA9E8);
+}
+
+.external-consent-container .buttons {
+    padding-top: 30px;
+    margin: 0px auto;
+    width: 575px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.external-consent-container button.button {
+    display: flex;
+    border-radius: 0px;
+    width: 280px;
+    padding: 10px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.external-consent-container .button.selected {
+    outline: 3px solid var(--outline-color, #9DA9E8);
+    outline-offset: 2px;
+}
+
+.external-consent-container button.button.decline {
+    background: none;
+    border: 0.8px solid var(--border-color, #AA99EC);
+    color: var(--decline-text-color, #9D9B9B);
+}
+
+.external-consent-container button.button.accept {
+    border: none;
+    background: var(--accent-color, #D36B2E);
+    color: var(--accept-text-color, #FFF);
+}
+
+.external-consent-container .footer {
+    width: 575px;
+    display: flex;
+    margin: 0px auto;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-top: 40px;
+    font-feature-settings: 'liga' off, 'clig' off;
+    align-self: stretch;
+}
+
+.external-consent-container .footer-text {
+    color: #777;
+    font-size: 12px;
+    font-weight: 400;
+    width: 521px;
+    padding: 20px;
+}
+
+/* QR Code */
+.external-consent-container .qr-code {
+    display: flex !important;  /* Ensures proper rendering */
+    justify-content: center;
+    align-items: center;
+    width: 63px;
+    height: 63px;
+}
+
+.external-consent-container .qr-code img {
+    width: 100%;
+    height: 100%;
+    display: block; /* Ensures visibility */
+}
+
+/* Fallback for older browsers that don't support SVG */
+.external-consent-container.no-svg .qr-code svg {
+    display: none;
+}
+
+.external-consent-container.no-svg .qr-code img {
+    display: block;
+}
+
+/* Ensure flexbox works on older browsers */
+.external-consent-container .header,
+.external-consent-container .buttons,
+.external-consent-container .button,
+.external-consent-container .footer {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+/* Ensure QR code section is properly centered in older browsers */
+.external-consent-container .qr-code {
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
