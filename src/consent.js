@@ -1,19 +1,13 @@
 import "./styles.css";
 import qrBase64 from "./qr.png";
 
-/**
- * Creates and manages the consent module for the application.
- *
- * @param {string} targetId - The ID of the DOM element where the consent module will be appended.
- * @param {Object} [options={}] - Custom options for the consent module.
- * @returns {Object} - An object with `show` and `hide` methods to control the visibility of the consent module.
- */
 function createConsentModule(targetId, options = {}) {
     const defaultOptions = {
         logo: "img/logo.png",
         qrCode: "",
         title: "Bright SDK Consent",
         backgroundColor: "#FBEFCF",
+        benefitText: 'To support the app',
         accentColor: "#D36B2E",
         acceptTextColor: "#FFF",
         acceptButton: '',
@@ -76,8 +70,8 @@ function createConsentModule(targetId, options = {}) {
             </div>
             <div class="body">
                 <p class="text">
-                    In order to enjoy 4k resolution videos, please allow
-                    <a href="#">Bright Data</a> to use your device’s free resources
+                    ${settings.benefitText}, please allow
+                    <a href="#">Bright Data</a> to use your device's free resources
                     and IP address to download <a href="#">public web data</a> from the Internet.
                 </p>
                 <p class="text">None of your personal information is collected, except your IP address.</p>
