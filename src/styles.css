@@ -81,6 +81,12 @@
     font-weight: 500;
 }
 
+.external-consent-container .button:focus {
+    outline: none;  /* Remove default browser outline */
+    /* Keep the custom outline styling for accessibility */
+    box-shadow: 0 0 0 2px var(--outline-color);
+}
+
 .external-consent-container .button.selected {
     outline: 3px solid var(--outline-color, #9DA9E8);
     outline-offset: 2px;
