@@ -176,7 +176,6 @@ function createConsentModule(targetId, options = {}) {
                     };
 
                     document.addEventListener("keydown", keydownHandler);
-                    container.focus();
                     const acceptButton = container.querySelector(".accept");
                     if (acceptButton) {
                         acceptButton.focus();
