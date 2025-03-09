@@ -36,6 +36,10 @@
     text-align: left;
 }
 
+.external-consent-container .title span {
+    font-size: inherit;
+}
+
 .external-consent-container .body {
     height: 134px;
     align-self: stretch;

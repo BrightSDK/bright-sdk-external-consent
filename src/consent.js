@@ -29,31 +29,50 @@ function createConsentModule(targetId, options = {}) {
     const settings = { ...defaultOptions, ...options };
     let container = null;
     let focusedIndex = 0;
+    let keydownHandler = null;
+    let parent = null;
+    let buttons = null;
+
+    function updateFocus() {
+        if (!buttons) return;
+        buttons.forEach((btn, index) => {
+            btn.classList.toggle("selected", index === focusedIndex);
+            if (index === focusedIndex) btn.focus();
+        });
+    }
 
     /**
-     * Creates the consent module's DOM structure.
-     *
-     * @returns {Object} - Contains `show` and `hide` methods for managing the visibility of the consent module.
-     */
-    function create() {
-        if (container) return; // Prevent multiple instances
+     * Hides the consent module.
+    */
+    function hide() {
+        if (container && container.parentNode) {
+            container.parentNode.removeChild(container);
+            container = null;
+        }
+        if (parent) {
+            parent.style.display = 'none';
+        }
+        if (keydownHandler) {
+            document.removeEventListener("keydown", keydownHandler);
+            keydownHandler = null;
+        }
+        buttons = null;
+    }
 
-        var parent = document.getElementById(targetId);
-        parent.style.display = 'none';
+    function setupContainer() {
+        container = document.createElement("div");
+        container.className = "external-consent-container";
+        container.tabIndex = -1;
 
         let qrCode = `<img class="qr-code" src="${settings.qrCode || qrBase64}" alt="QR Code">`;
         let acceptButton = settings.acceptButton
             ? `<img src="${settings.acceptButton}" class="button accept" alt="Accept Button">`
             : `<button class="button accept">${settings.acceptButtonText}</button>`;
-
         let declineButton = settings.declineButton
             ? `<img src="${settings.declineButton}" class="button decline" alt="Decline Button">`
             : `<button class="button decline">${settings.declineButtonText}</button>`;
 
-        container = document.createElement("div");
-        container.className = "external-consent-container";
-        container.tabIndex = -1; // Allows keyboard focus
-
+        // Set CSS custom properties
         container.style.setProperty("--background-color", settings.backgroundColor);
         container.style.setProperty("--accent-color", settings.accentColor);
         container.style.setProperty("--text-color", settings.textColor);
@@ -66,7 +85,7 @@ function createConsentModule(targetId, options = {}) {
         container.innerHTML = `
             <div class="header">
                 <img src="${settings.logo}" alt="App Logo">
-                <div class="title"></div>
+                <div class="title">${settings.title}</div>
             </div>
             <div class="body">
                 <p class="text">
@@ -89,30 +108,18 @@ function createConsentModule(targetId, options = {}) {
                 ${qrCode}
             </div>
         `;
+    }
 
-        // Set the title of the consent module
-        container.querySelector(".title").innerHTML = settings.title;
-
-        const buttons = container.querySelectorAll(".button");
-
-        /**
-         * Updates the focus of buttons based on the currently focused index.
-         */
-        function updateFocus() {
-            buttons.forEach((btn, index) => {
-                btn.classList.toggle("selected", index === focusedIndex);
-                if (index === focusedIndex) btn.focus();
-            });
-        }
-
-        /**
-         * Removes the consent module from the DOM and hides the parent element.
-         */
-        function hide() {
-            if (container && container.parentNode) {
-                container.parentNode.removeChild(container);
-            }
-            parent.style.display = 'none';
+    /**
+     * Creates the consent module's DOM structure.
+     *
+     * @returns {Object} - Contains `show` and `hide` methods for managing the visibility of the consent module.
+     */
+    function create() {
+        parent = document.getElementById(targetId);
+        if (!parent) {
+            console.error(`Element with id ${targetId} not found`);
+            return null;
         }
 
         return {
@@ -128,58 +135,56 @@ function createConsentModule(targetId, options = {}) {
                     resolve();
                 }
 
-                // Add event listeners for button clicks (if not in preview mode)
+                if (container) {
+                    hide(); // Clean up existing instance
+                }
+
+                setupContainer();
+                parent.style.display = 'none';
+                parent.appendChild(container);
+                parent.style.display = 'flex';
+
                 if (!settings.preview) {
+                    buttons = container.querySelectorAll(".button");
+
                     buttons[0].addEventListener("click", () => {
                         settings.onDecline();
-                        settings.onClose();
                         cleanup();
                     });
 
                     buttons[1].addEventListener("click", () => {
                         settings.onAccept();
-                        settings.onClose();
                         cleanup();
                     });
-                }
 
-                /**
-                 * Handles keyboard interactions for navigation and selection.
-                 *
-                 * @param {KeyboardEvent} event - The keyboard event.
-                 */
-                function handleKeydown(event) {
-                    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-                        focusedIndex = event.key === "ArrowRight" ? 1 : 0;
-                        updateFocus();
-                    } else if (event.key === "Enter") {
-                        buttons[focusedIndex].click();
-                    } else if (event.key === "Escape") {
-                        cleanup();
-                    }
-                }
-
-                if (!container.parentNode) {
-                    parent.appendChild(container);
-                    parent.style.display = 'flex';
-                    if (!settings.preview) {
-                        document.addEventListener("keydown", handleKeydown);
-                        container.setAttribute("tabindex", "-1");
-                        container.focus();
-                        const acceptButton = container.querySelector(".accept");
-                        if (acceptButton) {
-                            acceptButton.focus();
-                            focusedIndex = 1;
+                    /**
+                     * Handles keyboard interactions for navigation and selection.
+                     *
+                     * @param {KeyboardEvent} event - The keyboard event.
+                     */
+                    keydownHandler = (event) => {
+                        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+                            focusedIndex = event.key === "ArrowRight" ? 1 : 0;
+                            updateFocus();
+                        } else if (event.key === "Enter") {
+                            buttons[focusedIndex].click();
+                        } else if (event.key === "Escape") {
+                            cleanup();
                         }
-                        updateFocus();
+                    };
+
+                    document.addEventListener("keydown", keydownHandler);
+                    container.focus();
+                    const acceptButton = container.querySelector(".accept");
+                    if (acceptButton) {
+                        acceptButton.focus();
+                        focusedIndex = 1;
                     }
+                    updateFocus();
                 }
+
                 settings.onShow();
             }),
-
-            /**
-             * Hides the consent module.
-             */
             hide
         };
     }
@@ -187,9 +192,6 @@ function createConsentModule(targetId, options = {}) {
     return create();
 }
 
-/**
- * Exposes the createConsentModule function globally if in a browser environment.
- */
 if (typeof window !== "undefined") {
     window.ConsentModule = { create: createConsentModule };
 }
