@@ -16,6 +16,7 @@ function createConsentModule(targetId, options = {}) {
         borderColor: "#AA99EC",
         outlineColor: "#9DA9E8",
         textColor: "#171717",
+        footerTextColor: "#777",
         declineButtonText: "Decline",
         acceptButtonText: "Accept",
         preview: false,
@@ -81,6 +82,7 @@ function createConsentModule(targetId, options = {}) {
         container.style.setProperty("--decline-text-color", settings.declineTextColor);
         container.style.setProperty("--border-color", settings.borderColor);
         container.style.setProperty("--outline-color", settings.outlineColor);
+        container.style.setProperty("--footer-text-color", settings.footerTextColor);
 
         container.innerHTML = `
             <div class="header">

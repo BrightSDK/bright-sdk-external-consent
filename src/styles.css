@@ -111,7 +111,7 @@
 }
 
 .external-consent-container .footer-text {
-    color: #777;
+    color: var(--footer-text-color, #777);
     font-size: 12px;
     font-weight: 400;
     width: 521px;
