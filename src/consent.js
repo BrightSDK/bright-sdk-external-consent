@@ -20,6 +20,7 @@ function createConsentModule(targetId, options = {}) {
         declineButtonText: "Decline",
         acceptButtonText: "Accept",
         preview: false,
+        simpleOptOut: false,
         onShow: () => console.log("Consent Shown"),
         onAccept: () => console.log("Consent Accepted"),
         onDecline: () => console.log("Consent Declined"),
@@ -84,20 +85,28 @@ function createConsentModule(targetId, options = {}) {
         container.style.setProperty("--outline-color", settings.outlineColor);
         container.style.setProperty("--footer-text-color", settings.footerTextColor);
 
+        let text = `
+            <p class="text">
+                ${settings.benefitText}, please allow <a href="#">Bright Data</a> to use your device's free resources
+                and IP address to download <a href="#">public web data</a> from the Internet.
+            </p>
+            <p class="text">None of your personal information is collected, except your IP address.</p>
+        `;
+        if (settings.simpleOptOut)
+        {
+            text += `
+            <div class="simple-opt-out">
+                <p class="text">Web indexing is <span class="status">enabled</span></p>
+                <p class="text">You can opt out any time. Press 5 for settings.</p>
+            </div>`;
+        }
+
         container.innerHTML = `
             <div class="header">
                 <img src="${settings.logo}" alt="App Logo">
                 <div class="title">${settings.title}</div>
             </div>
-            <div class="body">
-                <p class="text">
-                    ${settings.benefitText}, please allow
-                    <a href="#">Bright Data</a> to use your device's free resources
-                    and IP address to download <a href="#">public web data</a> from the Internet.
-                </p>
-                <p class="text">None of your personal information is collected, except your IP address.</p>
-                <p class="text">Your participation is totally optional and you may opt out at any time.</p>
-            </div>
+            <div class="body">${text}</div>
             <div class="buttons">
                 ${declineButton}
                 ${acceptButton}
@@ -130,7 +139,7 @@ function createConsentModule(targetId, options = {}) {
              *
              * @returns {Promise} - Resolves when the consent module is closed.
              */
-            show: () => new Promise((resolve) => {
+            show: status => new Promise((resolve) => {
                 function cleanup() {
                     settings.onClose();
                     hide();
@@ -139,6 +148,12 @@ function createConsentModule(targetId, options = {}) {
 
                 if (container) {
                     hide(); // Clean up existing instance
+                }
+
+                if (settings.simpleOptOut && status)
+                {
+                    var statusElement = container.querySelector('.text.status');
+                    statusElement.textContent = status;
                 }
 
                 setupContainer();

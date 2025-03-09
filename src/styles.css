@@ -47,6 +47,20 @@
     line-height: 28px;
 }
 
+.external-consent-container .simple-opt-out {
+    margin-top: 20px;
+}
+
+.external-consent-container .simple-opt-out .text {
+    font-weight: 550;
+    line-height: 30px;
+}
+
+/* Ensure the status span inherits the bold weight */
+.external-consent-container .text.bold .status {
+    font-weight: inherit;
+}
+
 .external-consent-container .text {
     font-size: 17px;
     font-weight: 400;
@@ -59,7 +73,7 @@
 }
 
 .external-consent-container .buttons {
-    padding-top: 30px;
+    padding-top: 60px;
     margin: 0px auto;
     width: 575px;
     margin-top: 20px;
@@ -119,6 +133,7 @@
 .external-consent-container .footer-text {
     color: var(--footer-text-color, #777);
     font-size: 12px;
+    line-height: 20px;
     font-weight: 400;
     width: 521px;
     padding: 20px;
@@ -131,6 +146,7 @@
     align-items: center;
     width: 63px;
     height: 63px;
+    background: white;
 }
 
 .external-consent-container .qr-code img {
