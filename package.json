@@ -1,6 +1,6 @@
 {
   "name": "bright-sdk-external-consent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "webpack.config.js",
   "author": "Vladislav S",
   "license": "ISC",
