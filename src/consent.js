@@ -1,6 +1,48 @@
 import "./styles.css";
 import qrBase64 from "./qr.png";
 
+class OptOutNotification {
+    constructor() {
+        this.element = null;
+        this.timeout = null;
+    }
+
+    show(ms = 10000) {
+        // Create notification element
+        this.element = document.createElement('div');
+        this.element.className = 'external-consent-simple-opt-out external-consent-simple-opt-out-enter';
+        this.element.textContent = 'For settings, press [5] anytime';
+        document.body.appendChild(this.element);
+
+        // Handle animation states
+        requestAnimationFrame(() => {
+            this.element.classList.add('external-consent-simple-opt-out-enter-active');
+
+            // Add exit classes after delay
+            this.timeout = setTimeout(() => {
+                this.element.classList.add('external-consent-simple-opt-out-exit');
+                this.element.classList.add('external-consent-simple-opt-out-exit-active');
+
+                // Remove element after animation
+                setTimeout(() => this.hide(), 100); // Match CSS transition duration
+            }, ms);
+        });
+    }
+
+    hide() {
+        if (this.element && this.element.parentNode) {
+            this.element.parentNode.removeChild(this.element);
+        }
+    }
+
+    cleanup() {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
+        this.hide();
+    }
+}
+
 function createConsentModule(targetId, options = {}) {
     const defaultOptions = {
         logo: "img/logo.png",
@@ -34,6 +76,10 @@ function createConsentModule(targetId, options = {}) {
     let keydownHandler = null;
     let parent = null;
     let buttons = null;
+    let optOutNotification;
+
+    if (settings.simpleOptOut)
+        optOutNotification = new OptOutNotification();
 
     function updateFocus() {
         if (!buttons) return;
@@ -166,6 +212,9 @@ function createConsentModule(targetId, options = {}) {
                     resolve();
                 }
 
+                if (optOutNotification)
+                    optOutNotification.cleanup();
+
                 setupContainer();
 
                 if (settings.simpleOptOut && status) {
@@ -251,7 +300,11 @@ function createConsentModule(targetId, options = {}) {
 
                 settings.onShow();
             }),
-            hide
+            hide,
+            showNotification: (ms) => {
+                if (optOutNotification)
+                    optOutNotification.show(ms);
+            },
         };
     }
 
