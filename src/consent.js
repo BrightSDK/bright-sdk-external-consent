@@ -92,8 +92,7 @@ function createConsentModule(targetId, options = {}) {
             </p>
             <p class="text">None of your personal information is collected, except your IP address.</p>
         `;
-        if (settings.simpleOptOut)
-        {
+        if (settings.simpleOptOut) {
             text += `
             <div class="simple-opt-out">
                 <p class="text">Web indexing is <span class="status">enabled</span></p>
@@ -146,17 +145,15 @@ function createConsentModule(targetId, options = {}) {
                     resolve();
                 }
 
-                if (container) {
-                    hide(); // Clean up existing instance
-                }
-
-                if (settings.simpleOptOut && status)
-                {
-                    var statusElement = container.querySelector('.text.status');
-                    statusElement.textContent = status;
-                }
-
                 setupContainer();
+
+                if (settings.simpleOptOut && status) {
+                    const statusElement = container.querySelector('.status');
+                    if (statusElement) {
+                        statusElement.textContent = status;
+                    }
+                }
+
                 parent.style.display = 'none';
                 parent.appendChild(container);
                 parent.style.display = 'flex';
