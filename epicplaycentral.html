@@ -23,18 +23,15 @@
     <div id="consent-wrapper"></div>
     <script>
         const consentDialog = ConsentModule.create("consent-wrapper", {
-            logo: "img/africa.png",
-            benefitText: "To get the most of this app",
-            title: "<i>African Safari Screensaver</i>",
-            acceptButton: "img/epicplay_accept_btn.png",
-            backgroundColor: "#FBEFCF",
-            buttonColor: "#D36B2E",
-            buttonTextColor: "#FFF",
-            borderColor: "gray",
-            outlineColor: "#9DA9E8",
-            onAccept: () => console.log("Accepted"),
-            onDecline: () => console.log("Declined"),
-            onClose: () => console.log("Consent closed")
+            title: '<span style="color: #C172F5">Epic</span><span style="color: #9746C8">Play</span> <span style="color: #614483">Central</span>',
+            logo: 'epicplaycentral/icon.png',
+            benefitText: 'To unlock all videos',
+            backgroundColor: '#EAE6F6',
+            borderColor: '#AA99EC',
+            outlineColor: '#9DA9E8',
+            acceptTextColor: '#000000',
+            declineTextColor: '#000000',
+            acceptButton: 'epicplaycentral/accept.png',
         });
         // Example: Show dialog on load
         consentDialog.show();

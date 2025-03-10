@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consent Widget</title>
+    <script src="dist/consent.bundle.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        #consent-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="consent-wrapper"></div>
+    <script>
+        const consentDialog = ConsentModule.create("consent-wrapper", {
+            benefitText: 'In order to remove all the ads',
+            title: '$$$ BlackJack',
+            logo: 'blackjack/icon.png',
+            backgroundColor: '#0D9A12',
+            textColor: 'white',
+            accentColor: '#E8EA12',
+            borderColor: '#D09E72',
+            acceptButton: 'blackjack/accept.png',
+            footerTextColor: 'white',
+            declineTextColor: 'black',
+            outlineColor: '#9DA9E8',
+            simpleOptOut: true,
+        });
+        // Example: Show dialog on load
+        consentDialog.show();
+    </script>
+</body>
+</html>
