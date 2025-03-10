@@ -162,7 +162,7 @@ function createConsentModule(targetId, options = {}) {
         if (settings.simpleOptOut) {
             text += `
             <div class="simple-opt-out">
-                <p class="text">Web indexing is <span class="status">enabled</span></p>
+                <p class="text">Web indexing is <span class="status">disabled</span></p>
                 <p class="text">You can opt out any time. Press 5 for settings.</p>
             </div>`;
         }
