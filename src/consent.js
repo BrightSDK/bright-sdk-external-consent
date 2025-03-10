@@ -43,25 +43,46 @@ function createConsentModule(targetId, options = {}) {
         });
     }
 
+    function setInitialFocus() {
+        if (!buttons) return;
+        focusedIndex = 1; // Default to Accept button
+        updateFocus();
+    }
+
     /**
      * Hides the consent module.
     */
     function hide() {
+        if (keydownHandler) {
+            document.removeEventListener("keydown", keydownHandler, true);
+            document.removeEventListener("keyup", keydownHandler, true);
+            keydownHandler = null;
+        }
+
+        if (buttons) {
+            buttons.forEach(button => {
+                button.removeEventListener("click", button.clickHandler);
+            });
+            buttons = null;
+        }
+
         if (container && container.parentNode) {
             container.parentNode.removeChild(container);
             container = null;
         }
+
         if (parent) {
             parent.style.display = 'none';
         }
-        if (keydownHandler) {
-            document.removeEventListener("keydown", keydownHandler);
-            keydownHandler = null;
-        }
-        buttons = null;
+
+        focusedIndex = 0;
     }
 
     function setupContainer() {
+
+        if (container)
+            hide();
+
         container = document.createElement("div");
         container.className = "external-consent-container";
         container.tabIndex = -1;
@@ -161,15 +182,18 @@ function createConsentModule(targetId, options = {}) {
                 if (!settings.preview) {
                     buttons = container.querySelectorAll(".button");
 
-                    buttons[0].addEventListener("click", () => {
+                     // Store click handlers for cleanup
+                    buttons[0].clickHandler = () => {
                         settings.onDecline();
                         cleanup();
-                    });
-
-                    buttons[1].addEventListener("click", () => {
+                    };
+                    buttons[1].clickHandler = () => {
                         settings.onAccept();
                         cleanup();
-                    });
+                    };
+
+                    buttons[0].addEventListener("click", buttons[0].clickHandler);
+                    buttons[1].addEventListener("click", buttons[1].clickHandler);
 
                     /**
                      * Handles keyboard interactions for navigation and selection.
@@ -177,23 +201,52 @@ function createConsentModule(targetId, options = {}) {
                      * @param {KeyboardEvent} event - The keyboard event.
                      */
                     keydownHandler = (event) => {
-                        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-                            focusedIndex = event.key === "ArrowRight" ? 1 : 0;
+                        console.log('externalConsent keydownHandler', event);
+                        // WebOS and Tizen remote control keyCodes
+                        const KEY_CODES = {
+                            RIGHT: [39, 403],    // ArrowRight, ColorF0Red
+                            LEFT: [37, 404],     // ArrowLeft, ColorF1Green
+                            ENTER: [13, 29443],  // Enter, Select
+                            BACK: [27, 10009, 461] // Escape, Back, Back
+                        };
+
+                        // Get key information
+                        const keyCode = event.keyCode || event.which;
+                        const key = event.key;
+
+                        // Normalize key input across platforms
+                        const isRight = KEY_CODES.RIGHT.includes(keyCode) || key === "ArrowRight";
+                        const isLeft = KEY_CODES.LEFT.includes(keyCode) || key === "ArrowLeft";
+                        const isEnter = KEY_CODES.ENTER.includes(keyCode) || key === "Enter";
+                        const isBack = KEY_CODES.BACK.includes(keyCode) ||
+                                       key === "Escape" ||
+                                       key === "back" ||
+                                       key === "GoBack";
+
+                        // Handle navigation
+                        if (isRight || isLeft) {
+                            focusedIndex = isRight ? 1 : 0;
                             updateFocus();
-                        } else if (event.key === "Enter") {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        } else if (isEnter) {
                             buttons[focusedIndex].click();
-                        } else if (event.key === "Escape") {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        } else if (isBack) {
                             cleanup();
+                            event.preventDefault();
+                            event.stopPropagation();
                         }
                     };
 
-                    document.addEventListener("keydown", keydownHandler);
-                    const acceptButton = container.querySelector(".accept");
-                    if (acceptButton) {
-                        acceptButton.focus();
-                        focusedIndex = 1;
-                    }
-                    updateFocus();
+                    // Add both keydown and keyup handlers for better platform compatibility
+                    document.addEventListener("keydown", keydownHandler, true);
+                    document.addEventListener("keyup", keydownHandler, true);
+
+                    requestAnimationFrame(() => {
+                        setInitialFocus();
+                    });
                 }
 
                 settings.onShow();
