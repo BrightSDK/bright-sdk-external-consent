@@ -253,7 +253,10 @@ function createConsentModule(targetId, options = {}) {
                      * @param {KeyboardEvent} event - The keyboard event.
                      */
                     keydownHandler = (event) => {
-                        console.log('externalConsent keydownHandler', event);
+                        if (window.debugExternalConsentKeydownHandler)
+                            debugger;
+                        if (window.logExternalConsentKeydownHandler)
+                            console.log('externalConsent keydownHandler', event);
                         // WebOS and Tizen remote control keyCodes
                         const KEY_CODES = {
                             RIGHT: [39, 403],    // ArrowRight, ColorF0Red
@@ -292,13 +295,15 @@ function createConsentModule(targetId, options = {}) {
                         }
                     };
 
-                    // Add both keydown and keyup handlers for better platform compatibility
-                    document.addEventListener("keydown", keydownHandler, true);
-                    document.addEventListener("keyup", keydownHandler, true);
-
                     requestAnimationFrame(() => {
                         setInitialFocus();
                     });
+
+                    setTimeout(() => {
+                        // Add both keydown and keyup handlers for better platform compatibility
+                        document.addEventListener("keydown", keydownHandler, true);
+                        document.addEventListener("keyup", keydownHandler, true);
+                    }, 200); // use slight delay to avoid catching the initial keydown event
                 }
 
                 settings.onShow();
