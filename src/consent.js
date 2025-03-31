@@ -228,6 +228,9 @@ function createConsentModule(targetId, options = {}) {
                 parent.appendChild(container);
                 parent.style.display = 'flex';
 
+                document.activeElement.blur();
+                container.focus();
+
                 if (!settings.preview) {
                     buttons = container.querySelectorAll(".button");
 
