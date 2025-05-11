@@ -157,7 +157,9 @@ function createConsentModule(targetId, options = {}) {
                 ${settings.benefitText}, please allow <a href="#">Bright Data</a> to use your device's free resources
                 and IP address to download <a href="#">public web data</a> from the Internet.
             </p>
-            <p class="text">None of your personal information is collected, except your IP address.</p>
+            <p class="text">None of your personal information is collected, except your IP address. <br>
+                Bright Data does not track you.
+            </p>
         `;
         if (settings.simpleOptOut) {
             text += `
