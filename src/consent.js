@@ -179,7 +179,6 @@ function createConsentModule(targetId, options = {}) {
             </div>
             <div class="footer">
                 <p class="footer-text">
-                    Bright Data runs in the background even after closing the application.
                     Scan the QR code to learn more on Bright Data policy and ethical usage.
                 </p>
                 ${qrCode}
