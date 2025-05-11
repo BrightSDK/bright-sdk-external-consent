@@ -16,6 +16,7 @@
     "core-js": "^3.41.0"
   },
   "scripts": {
-    "build": "npx webpack --mode production"
+    "build": "npx webpack --mode production",
+    "build-debug": "npx webpack --mode development"
   }
 }

@@ -1,7 +1,6 @@
 const path = require("path");
 
 module.exports = {
-    mode: "production",
     entry: "./src/consent.js",
     output: {
         filename: "consent.bundle.js",
