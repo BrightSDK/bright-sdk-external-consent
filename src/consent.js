@@ -154,8 +154,8 @@ function createConsentModule(targetId, options = {}) {
 
         let text = `
             <p class="text">
-                ${settings.benefitText}, please allow <a href="#">Bright Data</a> to use your device's free resources
-                and IP address to download <a href="#">public web data</a> from the Internet.
+                ${settings.benefitText}, please allow Bright Data to use your device's free resources
+                and IP address to download public web data from the Internet.
             </p>
             <p class="text">None of your personal information is collected, except your IP address. <br>
                 Bright Data does not track you.
