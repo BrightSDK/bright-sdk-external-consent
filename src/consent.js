@@ -1,5 +1,6 @@
 import "./styles.css";
 import qrBase64 from "./qr.png";
+import KeyCodeParser from "bright-sdk-keycode-parser";
 
 class OptOutNotification {
     constructor() {
@@ -258,26 +259,13 @@ function createConsentModule(targetId, options = {}) {
                             debugger;
                         if (window.logExternalConsentKeydownHandler)
                             console.log('externalConsent keydownHandler', event);
-                        // WebOS and Tizen remote control keyCodes
-                        const KEY_CODES = {
-                            RIGHT: [39, 403],    // ArrowRight, ColorF0Red
-                            LEFT: [37, 404],     // ArrowLeft, ColorF1Green
-                            ENTER: [13, 29443],  // Enter, Select
-                            BACK: [27, 10009, 461] // Escape, Back, Back
-                        };
-
-                        // Get key information
-                        const keyCode = event.keyCode || event.which;
-                        const key = event.key;
-
-                        // Normalize key input across platforms
-                        const isRight = KEY_CODES.RIGHT.includes(keyCode) || key === "ArrowRight";
-                        const isLeft = KEY_CODES.LEFT.includes(keyCode) || key === "ArrowLeft";
-                        const isEnter = KEY_CODES.ENTER.includes(keyCode) || key === "Enter";
-                        const isBack = KEY_CODES.BACK.includes(keyCode) ||
-                                       key === "Escape" ||
-                                       key === "back" ||
-                                       key === "GoBack";
+                        const key = KeyCodeParser.parseEvent(event);
+                        const {
+                            RIGHT: isRight,
+                            LEFT: isLeft,
+                            ENTER: isEnter,
+                            BACK: isBack,
+                        } = key;
 
                         // Handle navigation
                         if (isRight || isLeft) {

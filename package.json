@@ -13,7 +13,8 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "core-js": "^3.41.0"
+    "core-js": "^3.41.0",
+    "bright-sdk-keycode-parser": "https://brightsdk.github.io/packages/bright-sdk-keycode-parser/latest.tgz"
   },
   "scripts": {
     "build": "npx webpack --mode production",
