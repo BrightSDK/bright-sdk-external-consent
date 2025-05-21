@@ -293,6 +293,9 @@ function createConsentModule(targetId, options = {}) {
                         document.addEventListener("keydown", keydownHandler, true);
                         document.addEventListener("keyup", keydownHandler, true);
                     }, 200); // use slight delay to avoid catching the initial keydown event
+                } else {
+                    // set zindex for preview to support implementation steps overlay
+                    container.style.zIndex = 999;
                 }
 
                 settings.onShow();
