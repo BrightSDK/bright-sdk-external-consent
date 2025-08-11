@@ -58,29 +58,175 @@
             background: #4CAF50;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 16px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 6px;
             cursor: pointer;
-            margin: 10px;
+            margin: 0 5px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            min-width: 250px;
-            text-align: center;
-            line-height: 1.4;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            min-width: 80px;
         }
 
         .demo-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         #demo-buttons {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
+            flex-direction: column;
+            gap: 20px;
             margin-top: 20px;
+            width: 50%;
+            padding-right: 20px;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .right-panel {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .instruction-text {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            font-style: italic;
+        }
+
+        .demo-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .demo-item-header {
+            margin-bottom: 15px;
+        }
+
+        .demo-item-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .demo-item-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+        }
+
+        .demo-item-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .config-button {
+            background: #666;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            min-width: 80px;
+        }
+
+        .config-button:hover {
+            background: #777;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .config-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .config-popup-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            max-height: 70vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .config-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .config-popup-close:hover {
+            color: #000;
+        }
+
+        .config-copy-button {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .config-copy-button:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+
+        .config-content {
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-size: 12px;
+            line-height: 1.4;
         }
 
         .language-selector {
@@ -185,8 +331,15 @@
                 </select>
             </div>
 
-            <div id="demo-buttons">
-                <!-- Buttons will be generated dynamically from configurations -->
+            <div class="main-content">
+                <div id="demo-buttons">
+                    <!-- Buttons will be generated dynamically from configurations -->
+                </div>
+                <div class="right-panel">
+                    <div class="instruction-text">
+                        Select card from the left to see the example
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -254,18 +407,130 @@
 
             Object.keys(configs).forEach(configKey => {
                 const config = configs[configKey];
-                const button = document.createElement('button');
-                button.className = 'demo-button';
-                button.style.background = buttonColors[colorIndex % buttonColors.length];
-                button.innerHTML = `
-                    <div style="font-weight: bold; margin-bottom: 4px;">${config.name}</div>
-                    <div style="font-size: 0.9em; opacity: 0.9;">${config.description}</div>
-                `;
-                button.onclick = () => showConsentFromConfig(configKey);
 
-                buttonsContainer.appendChild(button);
+                // Create demo item container
+                const demoItem = document.createElement('div');
+                demoItem.className = 'demo-item';
+                // Apply the same solid background colors as the previous buttons
+                demoItem.style.background = buttonColors[colorIndex % buttonColors.length];
+                demoItem.style.border = 'none';
+
+                // Create header section
+                const header = document.createElement('div');
+                header.className = 'demo-item-header';
+
+                const title = document.createElement('div');
+                title.className = 'demo-item-title';
+                title.textContent = config.name;
+                title.style.color = 'white';
+
+                const description = document.createElement('div');
+                description.className = 'demo-item-description';
+                description.textContent = config.description;
+                description.style.color = 'rgba(255, 255, 255, 0.9)';
+
+                header.appendChild(title);
+                header.appendChild(description);
+
+                // Create buttons section
+                const buttonsSection = document.createElement('div');
+                buttonsSection.className = 'demo-item-buttons';
+
+                // Show button
+                const showButton = document.createElement('button');
+                showButton.className = 'demo-button';
+                showButton.style.background = '#f5f5f5';
+                showButton.style.color = '#333';
+                showButton.textContent = 'Show';
+                showButton.onclick = () => showConsentFromConfig(configKey);
+
+                // Config button
+                const configButton = document.createElement('button');
+                configButton.className = 'config-button';
+                configButton.style.background = '#666';
+                configButton.style.color = 'white';
+                configButton.textContent = 'Config';
+                configButton.onclick = () => showConfig(config);
+
+                buttonsSection.appendChild(showButton);
+                buttonsSection.appendChild(configButton);
+
+                demoItem.appendChild(header);
+                demoItem.appendChild(buttonsSection);
+
+                buttonsContainer.appendChild(demoItem);
                 colorIndex++;
             });
+        }
+
+        function showConfig(config) {
+            // Create popup if it doesn't exist
+            let popup = document.getElementById('config-popup');
+            if (!popup) {
+                popup = document.createElement('div');
+                popup.id = 'config-popup';
+                popup.className = 'config-popup';
+
+                const content = document.createElement('div');
+                content.className = 'config-popup-content';
+
+                const closeButton = document.createElement('button');
+                closeButton.className = 'config-popup-close';
+                closeButton.innerHTML = '&times;';
+                closeButton.onclick = () => popup.style.display = 'none';
+
+                const title = document.createElement('h2');
+                title.id = 'config-popup-title';
+                title.style.marginTop = '0';
+
+                const configContent = document.createElement('pre');
+                configContent.id = 'config-content';
+                configContent.className = 'config-content';
+
+                const copyButton = document.createElement('button');
+                copyButton.className = 'config-copy-button';
+                copyButton.innerHTML = '📋';
+                copyButton.title = 'Copy to clipboard';
+                copyButton.onclick = () => {
+                    navigator.clipboard.writeText(document.getElementById('config-content').textContent).then(() => {
+                        copyButton.innerHTML = '✓';
+                        setTimeout(() => {
+                            copyButton.innerHTML = '📋';
+                        }, 1500);
+                    }).catch(() => {
+                        // Fallback for older browsers
+                        const textArea = document.createElement('textarea');
+                        textArea.value = document.getElementById('config-content').textContent;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        copyButton.innerHTML = '✓';
+                        setTimeout(() => {
+                            copyButton.innerHTML = '📋';
+                        }, 1500);
+                    });
+                };
+
+                content.appendChild(closeButton);
+                content.appendChild(title);
+                content.appendChild(configContent);
+                content.appendChild(copyButton);
+                popup.appendChild(content);
+                document.body.appendChild(popup);
+
+                // Close on background click
+                popup.onclick = (e) => {
+                    if (e.target === popup) {
+                        popup.style.display = 'none';
+                    }
+                };
+            }
+
+            // Update content
+            document.getElementById('config-popup-title').textContent = config.name + ' Configuration';
+            document.getElementById('config-content').textContent = JSON.stringify(config.config, null, 2);
+            popup.style.display = 'flex';
         }
 
         // Update version badge from package info
