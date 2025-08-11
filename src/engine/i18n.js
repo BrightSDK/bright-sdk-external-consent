@@ -97,8 +97,18 @@ class ConsentI18n {
                 actualKey = foundKey;
                 text = currentTranslations[foundKey];
             } else {
-                // Fallback to the original input
-                text = keyOrText;
+                // Fallback to English translation if available, otherwise use original input
+                const englishTranslations = this.translations.en || {};
+                if (englishTranslations[keyOrText]) {
+                    // Direct key exists in English
+                    text = englishTranslations[keyOrText];
+                } else if (foundKey && englishTranslations[foundKey]) {
+                    // Found key exists in English
+                    text = englishTranslations[foundKey];
+                } else {
+                    // Final fallback to the original input
+                    text = keyOrText;
+                }
             }
         }
 
