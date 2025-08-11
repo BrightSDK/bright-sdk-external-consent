@@ -167,33 +167,25 @@ The module uses Handlebars templates organized in `src/templates/`:
 
 ## Live Examples
 
-Click the links below to see the consent dialog in action with different themes and configurations:
+Experience all consent dialog configurations in one interactive demo:
 
-### Game Applications
-- **[African Safari Screensaver](https://brightsdk.github.io/bright-sdk-external-consent/africa.html)** - Nature theme with warm colors
-  - Custom logo and African safari branding
-  - Benefit text: "To get the most of this app"
-  - Warm color palette (#FBEFCF background, #D36B2E accent)
+### **[🚀 Interactive Demo](https://brightsdk.github.io/bright-sdk-external-consent)**
+Explore multiple consent dialog themes and configurations including:
 
-- **[BlackJack Game](https://brightsdk.github.io/bright-sdk-external-consent/blackjack.html)** - Casino game theme
-  - Green casino-style background (#0D9A12)
-  - White text for contrast
-  - Benefit text: "In order to remove all the ads"
+- **🌍 African Safari** - Nature theme with warm colors and custom branding
+- **♠️ BlackJack Casino** - Casino gaming theme with Simple Opt Out
+- **🔴 Master Checkers** - Classic board game with Simple Opt Out
+- **🎮 EpicPlay Central** - Gaming platform with HTML title support
+- **📄 Minimal Default** - Basic consent dialog with default styling
+- **🌙 Dark Theme** - Modern dark theme design
 
-- **[Master Checkers](https://brightsdk.github.io/bright-sdk-external-consent/master-checkers.html)** - Classic board game
-  - Traditional checkers game styling
-  - Board game aesthetic
+Each configuration demonstrates different styling options, branding approaches, language support, and consent flow patterns. The demo includes:
+- **Language selector** - Test with 13 supported languages
+- **Live interaction** - Click any theme button to see the consent dialog
+- **Multiple patterns** - Standard consent and Simple Opt Out flows
+- **HTML title support** - Rich formatting in dialog titles
 
-- **[Epic Play Central](https://brightsdk.github.io/bright-sdk-external-consent/epicplaycentral.html)** - Gaming portal theme
-  - Gaming hub branding
-  - Multi-game platform styling
-
-### Basic Demo
-- **[Default Example](https://brightsdk.github.io/bright-sdk-external-consent/index.html)** - Standard implementation
-  - Default styling and configuration
-  - Basic consent flow demonstration
-
-Each example demonstrates different styling options, branding approaches, and use cases for the consent module. Simply click any link above to interact with a live demo!
+Simply visit the demo page and click any theme button to interact with different consent configurations!
 
 ## Examples
 
