@@ -24,6 +24,18 @@ module.exports = {
                 test: /\.css$/i,
                 use: ["style-loader", "css-loader"]
             },
+            {
+                test: /\.handlebars$/,
+                loader: "handlebars-loader",
+                options: {
+                    helperDirs: [
+                        __dirname + "/src/handlebars-helpers"
+                    ],
+                    partialDirs: [
+                        __dirname + "/src/templates"
+                    ]
+                }
+            }
         ],
     },
     resolve: {

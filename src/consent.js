@@ -1,18 +1,20 @@
-import "./styles.css";
-import qrBase64 from "./qr.png";
 import KeyCodeParser from "bright-sdk-keycode-parser";
+import "./css/styles.css";
+import TemplateManager from "./engine";
+import qrBase64 from "./img/qr.png";
 
 class OptOutNotification {
-    constructor() {
+    constructor(i18n) {
         this.element = null;
         this.timeout = null;
+        this.i18n = i18n;
     }
 
     show(ms = 10000) {
         // Create notification element
         this.element = document.createElement('div');
         this.element.className = 'external-consent-simple-opt-out external-consent-simple-opt-out-enter';
-        this.element.textContent = 'For settings, press [5] anytime';
+        this.element.textContent = 'For settings, press [5] anytime'; // Could be i18n later
         document.body.appendChild(this.element);
 
         // Handle animation states
@@ -50,7 +52,7 @@ function createConsentModule(targetId, options = {}) {
         qrCode: "",
         title: "Bright SDK Consent",
         backgroundColor: "#FBEFCF",
-        benefitText: 'To support the app',
+        benefitText: 'To use the app for free',
         accentColor: "#D36B2E",
         acceptTextColor: "#FFF",
         acceptButton: '',
@@ -64,6 +66,7 @@ function createConsentModule(targetId, options = {}) {
         acceptButtonText: "Accept",
         preview: false,
         simpleOptOut: false,
+        language: 'en', // Default language
         onShow: () => console.log("Consent Shown"),
         onAccept: () => console.log("Consent Accepted"),
         onDecline: () => console.log("Consent Declined"),
@@ -72,6 +75,11 @@ function createConsentModule(targetId, options = {}) {
 
     // Merge user-provided options with default options
     const settings = { ...defaultOptions, ...options };
+
+    // Initialize template manager
+    const templateManager = new TemplateManager();
+    templateManager.setLanguage(settings.language);
+
     let container = null;
     let focusedIndex = 0;
     let keydownHandler = null;
@@ -80,7 +88,7 @@ function createConsentModule(targetId, options = {}) {
     let optOutNotification;
 
     if (settings.simpleOptOut)
-        optOutNotification = new OptOutNotification();
+        optOutNotification = new OptOutNotification(i18n);
 
     function updateFocus() {
         if (!buttons) return;
@@ -135,12 +143,6 @@ function createConsentModule(targetId, options = {}) {
         container.tabIndex = -1;
 
         let qrCode = `<img class="qr-code" src="${settings.qrCode || qrBase64}" alt="QR Code">`;
-        let acceptButton = settings.acceptButton
-            ? `<img src="${settings.acceptButton}" class="button accept" alt="Accept Button">`
-            : `<button class="button accept">${settings.acceptButtonText}</button>`;
-        let declineButton = settings.declineButton
-            ? `<img src="${settings.declineButton}" class="button decline" alt="Decline Button">`
-            : `<button class="button decline">${settings.declineButtonText}</button>`;
 
         // Set CSS custom properties
         container.style.setProperty("--background-color", settings.backgroundColor);
@@ -153,40 +155,21 @@ function createConsentModule(targetId, options = {}) {
         container.style.setProperty("--outline-color", settings.outlineColor);
         container.style.setProperty("--footer-text-color", settings.footerTextColor);
 
-        let text = `
-            <p class="text">
-                ${settings.benefitText}, please allow Bright Data to use your device's free resources
-                and IP address to download public web data from the Internet.
-            </p>
-            <p class="text">None of your personal information is collected, except your IP address. <br>
-                Bright Data does not track you.
-            </p>
-        `;
-        if (settings.simpleOptOut) {
-            text += `
-            <div class="simple-opt-out">
-                <p class="text">Web indexing is <span class="status">disabled</span></p>
-                <p class="text">You can opt out any time. Press 5 for settings.</p>
-            </div>`;
-        }
+        // Render the main template with context
+        const templateContext = {
+            logo: settings.logo,
+            title: settings.title,
+            benefitText: templateManager.i18n.t(settings.benefitText),
+            simpleOptOut: settings.simpleOptOut,
+            status: 'disabled', // Default status for simple opt-out
+            acceptButton: settings.acceptButton,
+            declineButton: settings.declineButton,
+            acceptButtonText: templateManager.i18n.t(settings.acceptButtonText),
+            declineButtonText: templateManager.i18n.t(settings.declineButtonText),
+            qrCode: settings.qrCode || qrBase64
+        };
 
-        container.innerHTML = `
-            <div class="header">
-                <img src="${settings.logo}" alt="App Logo">
-                <div class="title">${settings.title}</div>
-            </div>
-            <div class="body">${text}</div>
-            <div class="buttons">
-                ${declineButton}
-                ${acceptButton}
-            </div>
-            <div class="footer">
-                <p class="footer-text">
-                    Scan the QR code to learn more on Bright Data policy and ethical usage.
-                </p>
-                ${qrCode}
-            </div>
-        `;
+        container.innerHTML = templateManager.render('main', templateContext);
     }
 
     /**
