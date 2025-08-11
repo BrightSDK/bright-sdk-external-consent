@@ -136,11 +136,27 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
+
+        .version-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+        }
     </style>
 </head>
 <body>
+    <div class="version-badge" id="version-badge">v?.?.?</div>
+
     <a href="https://github.com/BrightSDK/bright-sdk-external-consent" class="github-link" target="_blank">
-        📚 View Documentation
+        📚 View on GitHub
     </a>
 
     <div class="demo-container">
@@ -252,9 +268,27 @@
             });
         }
 
+        // Update version badge from package info
+        function updateVersionBadge() {
+            // Try to get version from package.json via fetch
+            fetch('package.json')
+                .then(response => response.json())
+                .then(packageInfo => {
+                    const versionBadge = document.getElementById('version-badge');
+                    if (versionBadge && packageInfo.version) {
+                        versionBadge.textContent = `v${packageInfo.version}`;
+                    }
+                })
+                .catch(error => {
+                    console.log('Could not load version from package.json:', error);
+                    // Fallback: try to extract from script src or other methods
+                });
+        }
+
         // Initialize buttons when page loads
         window.addEventListener('load', () => {
             generateButtons();
+            updateVersionBadge();
         });
     </script>
 </body>
