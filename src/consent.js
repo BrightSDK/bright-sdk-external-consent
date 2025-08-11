@@ -88,7 +88,7 @@ function createConsentModule(targetId, options = {}) {
     let optOutNotification;
 
     if (settings.simpleOptOut)
-        optOutNotification = new OptOutNotification(i18n);
+        optOutNotification = new OptOutNotification(templateManager.i18n);
 
     function updateFocus() {
         if (!buttons) return;
@@ -170,6 +170,12 @@ function createConsentModule(targetId, options = {}) {
         };
 
         container.innerHTML = templateManager.render('main', templateContext);
+
+        // Post-process title to support HTML rendering
+        const titleElement = container.querySelector('.title');
+        if (titleElement && settings.title) {
+            titleElement.innerHTML = settings.title;
+        }
     }
 
     /**

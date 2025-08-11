@@ -74,7 +74,7 @@ Creates a new consent dialog instance with full i18n support.
 ##### Visual Customization
 - `logo` (string) - URL of the logo image. Default: 'img/logo.png'
 - `qrCode` (string) - URL of a QR code image
-- `title` (string) - Title text of the dialog. Default: 'Bright SDK Consent'
+- `title` (string) - Title text of the dialog (supports HTML). Default: 'Bright SDK Consent'
 - `backgroundColor` (string) - Background color. Default: '#FBEFCF'
 - `accentColor` (string) - Accent color for buttons. Default: '#D36B2E'
 - `acceptTextColor` (string) - Accept button text color. Default: '#FFF'
@@ -165,6 +165,36 @@ The module uses Handlebars templates organized in `src/templates/`:
 - **Enter**: Activate focused button
 - **Back/Escape**: Close dialog
 
+## Live Examples
+
+Click the links below to see the consent dialog in action with different themes and configurations:
+
+### Game Applications
+- **[African Safari Screensaver](https://brightsdk.github.io/bright-sdk-external-consent/africa.html)** - Nature theme with warm colors
+  - Custom logo and African safari branding
+  - Benefit text: "To get the most of this app"
+  - Warm color palette (#FBEFCF background, #D36B2E accent)
+
+- **[BlackJack Game](https://brightsdk.github.io/bright-sdk-external-consent/blackjack.html)** - Casino game theme
+  - Green casino-style background (#0D9A12)
+  - White text for contrast
+  - Benefit text: "In order to remove all the ads"
+
+- **[Master Checkers](https://brightsdk.github.io/bright-sdk-external-consent/master-checkers.html)** - Classic board game
+  - Traditional checkers game styling
+  - Board game aesthetic
+
+- **[Epic Play Central](https://brightsdk.github.io/bright-sdk-external-consent/epicplaycentral.html)** - Gaming portal theme
+  - Gaming hub branding
+  - Multi-game platform styling
+
+### Basic Demo
+- **[Default Example](https://brightsdk.github.io/bright-sdk-external-consent/index.html)** - Standard implementation
+  - Default styling and configuration
+  - Basic consent flow demonstration
+
+Each example demonstrates different styling options, branding approaches, and use cases for the consent module. Simply click any link above to interact with a live demo!
+
 ## Examples
 
 ### Multi-language with Custom Styling
@@ -182,6 +212,23 @@ const consent = ConsentModule.create('consent-container', {
     onDecline: () => {
         console.log('User declined');
         // Handle decline
+    }
+});
+
+consent.show();
+```
+
+### HTML Title with Custom Styling
+```javascript
+const consent = ConsentModule.create('consent-container', {
+    title: '<span style="color: #C172F5">Epic</span><span style="color: #9746C8">Play</span> <span style="color: #614483">Central</span>',
+    benefitText: 'To unlock all videos',
+    backgroundColor: '#EAE6F6',
+    borderColor: '#AA99EC',
+    acceptTextColor: '#000000',
+    declineTextColor: '#000000',
+    onAccept: () => {
+        console.log('User accepted with styled title');
     }
 });
 

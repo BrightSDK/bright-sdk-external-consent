@@ -3,137 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>External Consent for BrightSDK Apps</title>
+    <title>External Consent for BrightSDK Apps - Demo</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- uncomment for local development -->
+    <!-- <script src="dist/consent.bundle.js"></script> -->
+    <script src="https://brightsdk.github.io/bright-sdk-external-consent/releases/latest/consent.bundle.js"></script>
+    <script src="consent-configs.js"></script>
     <style>
-        body {
+        body, html {
+            height: 100%;
+            margin: 0;
             font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             padding: 20px;
+            box-sizing: border-box;
         }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+
+        .demo-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
         }
-        h2 {
-            color: #3498db;
-            margin-top: 30px;
+
+        .demo-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        h3 {
-            color: #2c3e50;
+
+        .demo-header p {
+            margin: 0;
+            font-size: 1.2em;
+            opacity: 0.9;
         }
-        code {
-            background-color: #f8f8f8;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            font-family: Consolas, Monaco, 'Andale Mono', monospace;
-            padding: 2px 4px;
-            font-size: 90%;
+
+        .demo-controls {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        pre {
-            background-color: #f8f8f8;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            padding: 10px;
-            overflow-x: auto;
-        }
-        pre code {
+
+        .demo-button {
+            background: #4CAF50;
+            color: white;
             border: none;
-            padding: 0;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 250px;
+            text-align: center;
+            line-height: 1.4;
         }
-        ul {
-            padding-left: 20px;
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
-        a {
-            color: #3498db;
+
+        #demo-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .language-selector {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .language-selector select {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+
+        .language-selector select option {
+            background: #333;
+            color: white;
+        }
+
+        #consent-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .github-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 20px;
             text-decoration: none;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
-        a:hover {
-            text-decoration: underline;
+
+        .github-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
-    <h1>External Consent for BrightSDK Apps</h1>
+    <a href="https://github.com/BrightSDK/bright-sdk-external-consent" class="github-link" target="_blank">
+        📚 View Documentation
+    </a>
 
-    <h2>Overview</h2>
-    <p><strong>External Consent for BrightSDK Apps</strong> is a JavaScript module that provides a customizable consent dialog for applications integrating with BrightSDK. It allows users to grant or deny consent through a user-friendly interface.</p>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>🌐 BrightSDK Consent Dialog</h1>
+            <p>Interactive demo with 13 language support and customizable styling</p>
+        </div>
 
-    <h2>Installation</h2>
-    <p>Include the module in your project:</p>
-    <pre><code>import ConsentModule from 'path-to-module';</code></pre>
+        <div class="demo-controls">
+            <div class="language-selector">
+                <label for="language">🗣️ Language:</label>
+                <select id="language">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="it">Italiano</option>
+                    <option value="pt">Português</option>
+                    <option value="ru">Русский</option>
+                    <option value="ar">العربية</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="ja">日本語</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="tr">Türkçe</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
 
-    <h2>Usage</h2>
-    <p>To create and display the consent dialog:</p>
-    <pre><code>const consent = ConsentModule.create('target-element-id', {
-  logo: 'img/custom-logo.png',
-  backgroundColor: '#FFFFFF',
-  acceptButtonText: 'Agree',
-  declineButtonText: 'No Thanks',
-  onAccept: () => console.log('User accepted consent'),
-  onDecline: () => console.log('User declined consent')
-});
+            <div id="demo-buttons">
+                <!-- Buttons will be generated dynamically from configurations -->
+            </div>
+        </div>
+    </div>
 
-consent.show();</code></pre>
+    <div id="consent-wrapper"></div>
 
-    <h2>API Reference</h2>
+    <script>
+        let currentConsent = null;
 
-    <h3><code>ConsentModule.create(targetId, options)</code></h3>
-    <p>Creates a new consent dialog instance.</p>
+        function getSelectedLanguage() {
+            return document.getElementById('language').value;
+        }
 
-    <h4>Parameters</h4>
-    <ul>
-        <li><code>targetId</code> (string, required) - ID of the DOM element where the dialog will be placed.</li>
-        <li><code>options</code> (object, optional) - Customization options for the consent dialog.</li>
-    </ul>
+        function showConsentFromConfig(configKey) {
+            if (currentConsent) {
+                currentConsent.hide();
+            }
 
-    <h4>Options</h4>
-    <ul>
-        <li><code>logo</code> (string) - URL of the logo image.</li>
-        <li><code>qrCode</code> (string) - URL of a QR code image.</li>
-        <li><code>title</code> (string) - Title text of the dialog.</li>
-        <li><code>backgroundColor</code> (string) - Background color of the dialog.</li>
-        <li><code>accentColor</code> (string) - Accent color for buttons and highlights.</li>
-        <li><code>acceptButtonText</code> (string) - Text for the accept button.</li>
-        <li><code>declineButtonText</code> (string) - Text for the decline button.</li>
-        <li><code>onShow</code> (function) - Callback when the dialog is shown.</li>
-        <li><code>onAccept</code> (function) - Callback when the user accepts consent.</li>
-        <li><code>onDecline</code> (function) - Callback when the user declines consent.</li>
-        <li><code>onClose</code> (function) - Callback when the dialog is closed.</li>
-    </ul>
+            const configData = window.consentConfigurations[configKey];
+            if (!configData) {
+                console.error(`Configuration "${configKey}" not found`);
+                return;
+            }
 
-    <h3>Methods</h3>
+            // Merge the configuration with language and common callbacks
+            const consentConfig = {
+                ...configData.config,
+                language: getSelectedLanguage(),
+                onShow: () => {
+                    console.log(`${configData.name} consent shown`);
+                },
+                onAccept: () => {
+                    console.log(`User accepted ${configData.name} consent`);
+                    alert(`✅ ${configData.name} - Consent accepted! Check console for details.`);
+                },
+                onDecline: () => {
+                    console.log(`User declined ${configData.name} consent`);
+                    alert(`❌ ${configData.name} - Consent declined! Check console for details.`);
+                },
+                onClose: () => {
+                    console.log(`${configData.name} consent dialog closed`);
+                }
+            };
 
-    <h4><code>show()</code></h4>
-    <p>Displays the consent dialog and returns a promise that resolves when the dialog is closed.</p>
-    <pre><code>consent.show().then(() => console.log('Consent dialog closed'));</code></pre>
+            currentConsent = ConsentModule.create("consent-wrapper", consentConfig);
+            currentConsent.show();
+        }
 
-    <h4><code>hide()</code></h4>
-    <p>Manually hides the consent dialog.</p>
-    <pre><code>consent.hide();</code></pre>
+        // Generate buttons dynamically from configurations
+        function generateButtons() {
+            const buttonsContainer = document.getElementById('demo-buttons');
+            const configs = window.consentConfigurations;
 
-    <h2>Events</h2>
-    <ul>
-        <li><code>onShow</code>: Triggered when the dialog appears.</li>
-        <li><code>onAccept</code>: Triggered when the user accepts.</li>
-        <li><code>onDecline</code>: Triggered when the user declines.</li>
-        <li><code>onClose</code>: Triggered when the dialog is closed.</li>
-    </ul>
+            // Define colors for different button themes
+            const buttonColors = [
+                '#4CAF50', // Green
+                '#2196F3', // Blue
+                '#FF9800', // Orange
+                '#9C27B0', // Purple
+                '#607D8B', // Blue Grey
+                '#795548'  // Brown
+            ];
 
-    <h2>Example</h2>
-    <pre><code>const consent = ConsentModule.create('consent-container', {
-  title: 'User Agreement',
-  backgroundColor: '#EEE',
-  onAccept: () => alert('Thank you for accepting!'),
-  onDecline: () => alert('You declined the consent.')
-});
+            let colorIndex = 0;
 
-consent.show();</code></pre>
+            Object.keys(configs).forEach(configKey => {
+                const config = configs[configKey];
+                const button = document.createElement('button');
+                button.className = 'demo-button';
+                button.style.background = buttonColors[colorIndex % buttonColors.length];
+                button.innerHTML = `
+                    <div style="font-weight: bold; margin-bottom: 4px;">${config.name}</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">${config.description}</div>
+                `;
+                button.onclick = () => showConsentFromConfig(configKey);
 
-    <h2>License</h2>
-    <p>This module is licensed under <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+                buttonsContainer.appendChild(button);
+                colorIndex++;
+            });
+        }
+
+        // Initialize buttons when page loads
+        window.addEventListener('load', () => {
+            generateButtons();
+        });
+    </script>
 </body>
 </html>

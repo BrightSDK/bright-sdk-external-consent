@@ -1,6 +1,6 @@
 {
   "name": "bright-sdk-external-consent",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "webpack.config.js",
   "author": "Vladislav S",
   "license": "ISC",
@@ -24,5 +24,11 @@
     "build-debug": "npx webpack --mode development",
     "release": "npm run build && npx release-manager",
     "release-debug": "npm run build-debug && npx release-manager"
+  },
+  "buildInfo": {
+    "outputs": [
+      "dist/consent.bundle.js - Main distribution bundle for releases",
+      "examples/dist/consent.bundle.js - Copy for local example development"
+    ]
   }
 }
