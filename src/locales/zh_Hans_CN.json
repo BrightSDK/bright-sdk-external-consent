@@ -88,5 +88,12 @@
     "scan_qr": "扫描二维码，了解 Bright Data 网络索引的更多信息",
     "desc_main_3": "Bright Data{tooltip:approved}將僅對已準予的業務相關用例使用{/tooltip}你的IP地址，而{tooltip:malicious}從不會{/tooltip}容許未授權用例使用。除卻你的IP地址外，你的任何個人資料均不會被存取或收集。",
     "desc_this_app": "应用程序",
-    "desc_benefit_free": "免费使用应用程序"
+    "desc_benefit_free": "免费使用应用程序",
+    "benefit_text_lock": "解锁所有视频",
+    "agree_button_text_video_unlock": "是 — 解锁所有视频",
+    "disagree_button_text_video_limit": "否 — 仅显示有限视频",
+    "opt_out_settings": "可从应用程序设置中选择退出",
+    "benefit_text_hires": "畅享高清视频",
+    "out_out_simple": "在电视遥控器上按 5 进行设置",
+    "benefit_game_ads": "畅玩游戏，无广告干扰"
 }

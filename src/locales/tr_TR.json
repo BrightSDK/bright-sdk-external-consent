@@ -79,11 +79,21 @@
     "close_app": "Uygulamayı kapat",
     "back": "Geri",
     "desc_main_1_app_name": "{url}Bright Data{/url} web indekslemesinin zaman zaman cihazınızın kullanılabilir kaynaklarından ve IP adresinden yararlanarak herkese açık web verilerini İnternetten indirmesine izin verdiğiniz takdirde, {placeholder:app_name/} uygulamasını ücretsiz kullanabilirsiniz.",
+    "desc_main_1_benefit_txt": "{placeholder:benefit_txt/} avantajından yararlanmak için {url}Bright Data{/url}'nın zaman zaman internetten herkese açık verileri indirmek amacıyla cihazınızın boşta kalan kaynaklarını ve IP adresini kullanmasına izin vermiş oluyorsunuz.",
     "desc_main_1_benefit": "{placeholder:benefit/} için, lütfen {url}Bright Data{/url} web indekslemesinin zaman zaman cihazınızın kullanılabilir kaynaklarından ve IP adresinden yararlanarak {url}herkese açık web verilerini İnternetten{/url} indirmesine izin verin.",
+    "desc_main_2": "BrightData olarak bize duyduğuz güvene büyük önem veriyor, gizliliğinizi ve kişisel verilerinizi korumak için her türlü önlemi alıyoruz. IP adresinizi paylaşmanın getirdiği güvenlik hassasiyetlerinin bilinciyle, güvenliğinizi sağlamak amacıyla tüm ağ trafiğini izliyoruz.",
     "mob_main_2": "IP adresiniz dışında hiçbir kişisel bilginize erişilmez veya veri toplanmaz.",
     "mob_main_1_no_benefit": "{placeholder:app_name/} uygulamasını desteklemek için, siz {placeholder:my_app/} uygulamasını kullanırken lütfen {url}Bright Data web indekslemesinin{/url} cihazınızın kullanılabilir kaynaklarından ve IP adresinden yararlanarak {url}herkese açık web verilerini{/url} İnternetten indirmesine izin verin.",
     "mob_main_4": "Bright Data sizi takip etmez.",
     "scan_qr": "Bright Data'nın web indekslemesi hakkında daha fazla bilgi edinmek için QR Kodunu tarayın",
+    "desc_main_3": "BrightData, IP adresinizi {tooltip:approved}yalnızca{/tooltip} iş amaçlı, onaylanmış kullanım senaryoları kapsamında kullanır, {tooltip:malicious}hiçbir zaman{/tooltip} izin verilmeyen amaçlar için kullanmaz. IP adresiniz dışında kesinlikle hiçbir kişisel bilginize erişilmez veya bilgi toplanmaz.",
     "desc_this_app": "bu uygulama",
-    "desc_benefit_free": "Uygulamayı ücretsiz kullanmak için"
+    "desc_benefit_free": "Uygulamayı ücretsiz kullanmak için",
+    "benefit_text_lock": "Tüm videoların kilidini açmak için",
+    "agree_button_text_video_unlock": "Evet - tüm videoların kilidi açılsın",
+    "disagree_button_text_video_limit": "Hayır - sınırlı sayıda video gösterilsin",
+    "opt_out_settings": "Uygulama ayarlarında devre dışı bırakma seçeneği mevcuttur",
+    "benefit_text_hires": "Yüksek çözünürlüklü videoların keyfini çıkarmak için",
+    "out_out_simple": "Ayarlar için TV kumandanızda 5'e basın",
+    "benefit_game_ads": "Bu oyunu reklamsız oynamak için"
 }

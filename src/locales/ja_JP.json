@@ -79,11 +79,21 @@
     "close_app": "アプリケーションを閉じる",
     "back": "戻る",
     "desc_main_1_app_name": "{placeholder:app_name/}は、{url}Bright Dataによるウェブサイトのインデックス作成{/url}がお使いのデバイスの空きリソースとIPアドレスを時折使用して、インターネットから公開ウェブデータをダウンロードできるようにしてもらう代わりに無料で使用できます。",
+    "desc_main_1_benefit_txt": "{placeholder:benefit_txt/}を利用するには、{url}Bright Data{/url}がインターネット上のパブリックウェブデータを取得する際、お客様のデバイスの空きリソースとIPアドレスを時折使用することを許可することになります。",
     "desc_main_1_benefit": "{placeholder:benefit/}、{url}Bright Dataによるウェブサイトのインデックス作成{/url}がお使いのデバイスの空きリソースとIPアドレスを時折使用して、{url}インターネットから公開ウェブデータをダウンロードできるようにしてください。{/url}",
+    "desc_main_2": "Bright Dataは、お客様からの信頼を重視し、プライバシーと個人データを保護するために可能な限りの対策を講じています。IPアドレスの共有に伴うセキュリティの重要性を理解しており、安全性を確保するためにすべてのネットワークトラフィックを監視しています。",
     "mob_main_2": "IPアドレスを除き、個人情報には一切アクセスせず、収集も行いません。",
     "mob_main_1_no_benefit": "{placeholder:app_name/}に対応するため、{url}Bright Dataによるウェブサイトのインデックス作成{/url}がお使いのデバイスの空きリソースとIPアドレスを使用して、{placeholder:my_app/}の使用中にインターネットから{url}公開ウェブデータ{/url}をダウンロードできるようにしてください。",
     "mob_main_4": "Bright Dataがお客様を追跡することはありません。",
     "scan_qr": "QRコードをスキャンすると、Bright Dataによるウェブサイトのインデックス作成に関する詳細をご覧いただけます。",
+    "desc_main_3": "Bright Dataは、お客様のIPアドレスを承認されたビジネス関連のユースケースに{tooltip:approved}のみ使用{/tooltip}し、不正な用途には{tooltip:malicious}一切{/tooltip}使用しません。お客様の個人情報には、IPアドレスを除き、一切アクセスしたり収集したりすることはありません。",
     "desc_this_app": "このアプリ",
-    "desc_benefit_free": "無料でアプリを使用するには"
+    "desc_benefit_free": "無料でアプリを使用するには",
+    "benefit_text_lock": "すべての動画のロックを解除するには",
+    "agree_button_text_video_unlock": "はい - すべての動画のロックを解除",
+    "disagree_button_text_video_limit": "いいえ - 限定された動画のみ表示",
+    "opt_out_settings": "オプトアウトはアプリの設定から可能です",
+    "benefit_text_hires": "高解像度の動画を楽しむには",
+    "out_out_simple": "設定はテレビのリモコンで5を押してください",
+    "benefit_game_ads": "広告なしでこのゲームを楽しむには"
 }

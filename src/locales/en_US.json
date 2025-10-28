@@ -85,8 +85,15 @@
     "mob_main_2": "None of your personal information is accessed or collected except your IP address.",
     "mob_main_1_no_benefit": "To support {placeholder:app_name/}, please allow web indexing by {url}Bright Data{/url} to use your device’s free resources and IP address to download {url}public web data{/url} from the Internet while you are using {placeholder:my_app/}.",
     "mob_main_4": "Bright Data does not track you.",
-    "scan_qr": "Scan the QR Code to learn more about web indexing by Bright Data",
+    "scan_qr": "Scan the QR Code to learn more about Bright Data policy and ethical usage",
     "desc_main_3": "Bright Data {tooltip:approved}will only use{/tooltip} your IP address for approved business-related use cases and {tooltip:malicious}never{/tooltip} for unauthorized cases. None of your personal information is accessed or collected except your IP address.",
     "desc_this_app": "this app",
-    "desc_benefit_free": "To use the app for free"
+    "desc_benefit_free": "To use the app for free",
+    "benefit_text_lock": "To unlock all videos",
+    "agree_button_text_video_unlock": "Yes - unlock all videos",
+    "disagree_button_text_video_limit": "No - show limited videos",
+    "opt_out_settings": "Opt out is available from app settings",
+    "benefit_text_hires": "To enjoy high resolution videos",
+    "out_out_simple": "Press 5 on your TV remote for settings",
+    "benefit_game_ads": "To enjoy this game without ads"
 }

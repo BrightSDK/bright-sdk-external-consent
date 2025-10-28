@@ -79,10 +79,21 @@
     "close_app": "Toepassing afsluiten",
     "back": "Terug",
     "desc_main_1_app_name": "Je mag gratis gebruik maken van {placeholder:app_name/} in ruil voor het toestaan van {url}webindexering door BrightData{/url} om af en toe de beschikbare bronnen en het IP-adres van je apparaat te gebruiken om openbare webgegevens van het internet te downloaden.",
+    "desc_main_1_benefit_txt": "Als je de {placeholder:benefit_txt/} wilt krijgen, verleen {url}Bright Data{/url} dan toestemming om af en toe de beschikbare rekenkracht en het IP-adres van je computer te gebruiken om openbare webgegevens van het internet te downloaden.",
     "desc_main_1_benefit": "{placeholder:benefit/}, sta {url}webindexering door BrightData{/url} toe om af en toe de beschikbare bronnen en het IP-adres van je apparaat te gebruiken om openbare webgegevens van het internet te downloaden.",
+    "desc_main_2": "Bright Data vindt je vertrouwen erg belangrijk en doet er alles aan om je privacy en persoonlijke gegevens te beschermen. Bright Data snapt dat het delen van je IP-adres een veiligheidsrisico kan inhouden en bewaakt al het netwerkverkeer om je veiligheid te garanderen.",
+    "mob_main_2": "Er worden geen persoonlijke gegevens van je bekeken of verzameld, alleen je IP-adres.",
     "mob_main_1_no_benefit": "Als je {placeholder:app_name/} wilt ondersteunen, kun je {url}webindexering door BrightData{/url} toestaan, om de beschikbare bronnen en het IP-adres van je apparaat te gebruiken om {url}openbare webgegevens{/url} van het internet te downloaden terwijl je {placeholder:my_app/} gebruikt.",
     "mob_main_4": "Bright SDK traceert je niet.",
     "scan_qr": "Scan de QR-code voor meer informatie over webindexering door Bright Data",
+    "desc_main_3": "Bright Data {tooltip:approved}gebruikt je IP-adres alleen{/tooltip} voor goedgekeurde zakelijke doeleinden en {tooltip:malicious}nooit{/tooltip} voor ongeoorloofde doeleinden. Behalve je IP-adres worden er geen persoonlijke gegevens van je bekeken of verzameld.",
     "desc_this_app": "deze app",
-    "desc_benefit_free": "Om de app gratis te gebruiken"
+    "desc_benefit_free": "Om de app gratis te gebruiken",
+    "benefit_text_lock": "Om alle video's te ontgrendelen",
+    "agree_button_text_video_unlock": "Ja, alle video's ontgrendelen",
+    "disagree_button_text_video_limit": "Nee, beperkt video's tonen",
+    "opt_out_settings": "In de appinstellingen kun je je afmelden",
+    "benefit_text_hires": "Om te genieten van video's in hoge resolutie",
+    "out_out_simple": "Druk op 5 op de afstandsbediening van je tv voor instellingen",
+    "benefit_game_ads": "Om van dit spel te genieten zonder advertenties"
 }

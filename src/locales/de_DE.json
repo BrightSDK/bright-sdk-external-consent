@@ -88,5 +88,12 @@
     "scan_qr": "Einfach den QR-Code scannen, um mehr über die ethische Nutzung durch Bright Data zu erfahren",
     "desc_main_3": "Bright Data {tooltip:approved}verwendet Ihre IP-Adresse nur{/tooltip} für zugelassene Verwendungszwecke und {tooltip:malicious}niemals{/tooltip} für nicht autorisierte Verwendungen. Mit Ausnahme Ihrer IP-Adresse werden keine Ihrer personenbezogenen Daten abgerufen oder gesammelt.",
     "desc_this_app": "diese App",
-    "desc_benefit_free": "Um die App kostenlos zu nutzen,"
+    "desc_benefit_free": "Um die App kostenlos zu nutzen,",
+    "benefit_text_lock": "Um alle Videos freizuschalten",
+    "agree_button_text_video_unlock": "Ja – alle Videos freischalten",
+    "disagree_button_text_video_limit": "Nein – eingeschränkte Videos anzeigen",
+    "opt_out_settings": "Die Abmeldung kann über die App-Einstellung vorgenommen werden",
+    "benefit_text_hires": "Um Videos in hoher Qualität zu genießen",
+    "out_out_simple": "Drücken Sie die 5 auf Ihrer Fernbedienung, um die Einstellungen aufzurufen",
+    "benefit_game_ads": "Um dieses Spiel ohne Werbung zu genießen"
 }

@@ -88,5 +88,12 @@
     "scan_qr": "Scansiona il QR code per maggiori informazioni sull'indicizzazione web di Bright Data",
     "desc_main_3": "Bright Data {tooltip:approved} userà{/tooltip} il tuo indirizzo IP solo per casi di utilizzo aziendali approvati e {tooltip:malicious}mai{/tooltip} per casi non autorizzati. Non vi è nè accesso nè raccolta di alcun tuo dato personale, eccetto il tuo indirizzo IP.",
     "desc_this_app": "questa app",
-    "desc_benefit_free": "Per utilizzare l'app gratis"
+    "desc_benefit_free": "Per utilizzare l'app gratis",
+    "benefit_text_lock": "Per sbloccare tutti i video",
+    "agree_button_text_video_unlock": "Sì - sblocca tutti i video",
+    "disagree_button_text_video_limit": "No - mostra video limitati",
+    "opt_out_settings": "Puoi rinunciare dalle impostazioni dell'app",
+    "benefit_text_hires": "Per goderti i video ad alta risoluzione",
+    "out_out_simple": "Premi 5 sul telecomando della TV per aprire le impostazioni",
+    "benefit_game_ads": "Per goderti questo gioco senza pubblicità"
 }

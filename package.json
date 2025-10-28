@@ -6,6 +6,7 @@
   "license": "ISC",
   "description": "External Consent library for BrightSDK apps",
   "devDependencies": {
+    "@bright-sdk/i18n": "https://brightsdk.github.io/packages/bright-sdk-i18n/latest.tgz",
     "@bright-sdk/tool-release-manager": "https://brightsdk.github.io/packages/bright-sdk-tool-release-manager/latest.tgz",
     "css-loader": "^7.1.2",
     "handlebars": "^4.7.8",
@@ -22,6 +23,7 @@
   "scripts": {
     "build": "npx webpack --mode production",
     "build-debug": "npx webpack --mode development",
+    "build:i18n": "bash update_i18n.sh",
     "release": "npm run build && npx release-manager",
     "release-debug": "npm run build-debug && npx release-manager"
   },
