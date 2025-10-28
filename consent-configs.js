@@ -9,6 +9,7 @@ const consentConfigurations = {
             logo: "img/africa.png",
             benefitText: "To enjoy this game without ads",
             title: "African Safari Screensaver",
+            declineButtonText: "I Don't Agree",
             backgroundColor: "#FBEFCF",
             buttonColor: "#D36B2E",
             buttonTextColor: "#FFF",

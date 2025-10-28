@@ -330,14 +330,14 @@ function createConsentModule(targetId, options = {}) {
                                 const final = String(translatedTemplate).replace(/\{\{\s*status\s*\}\}/g, statusHtml);
                                 try {
                                     // Log the translated template and the final HTML we will insert
-                                    console.log('[consent] translatedTemplate:', translatedTemplate, 'finalHtml:', final);
+                                    console.debug('[consent] translatedTemplate:', translatedTemplate, 'finalHtml:', final);
                                 } catch (e) {}
                                 statusPara.innerHTML = final;
 
                                 try {
                                     // Confirm what ended up in the DOM immediately after assignment
-                                    console.log('[consent] statusPara.innerHTML (after set):', statusPara.innerHTML);
-                                    console.log('[consent] container.innerHTML (snippet):', container.innerHTML.slice(0, 500));
+                                    console.debug('[consent] statusPara.innerHTML (after set):', statusPara.innerHTML);
+                                    console.debug('[consent] container.innerHTML (snippet):', container.innerHTML.slice(0, 500));
                                 } catch (e) {}
                             } else {
                                 // Fallback to using the translated token only
@@ -365,8 +365,42 @@ function createConsentModule(targetId, options = {}) {
                     if (buttons && buttons.length >= 2) {
                         try {
                             // left button is Decline, right button is Accept per existing code
-                            buttons[0].textContent = tr(settings.declineButtonText || settings.declineButtonTextText);
-                            buttons[1].textContent = tr(settings.acceptButtonText || settings.acceptButtonText);
+                            // Translate the provided strings/keys similarly to benefitText translation
+                            // `declineButtonTextText` was a leftover typo — use the single `declineButtonText` option only
+                            // Debug: show the raw settings for button text before translation
+                            try { console.log('[consent] button settings (raw): declineButtonText=', settings.declineButtonText, 'acceptButtonText=', settings.acceptButtonText); } catch (e) {}
+
+                            // Allow passing literal strings (e.g. "Decline") and try to resolve them
+                            // to translation keys the same way benefitText is handled. First try
+                            // a normal translation; if that returns the original string, attempt
+                            // a reverse-lookup on the English text to find the key and translate that.
+                            const rawDecline = settings.declineButtonText || '';
+                            const rawAccept = settings.acceptButtonText || '';
+
+                            let translatedDecline = tr(rawDecline);
+                            let translatedAccept = tr(rawAccept);
+
+                            try {
+                                // If translation returned the same literal (no mapping), try reverse lookup
+                                if (translatedDecline === rawDecline && templateManager && templateManager.i18n && typeof templateManager.i18n.findKeyForText === 'function') {
+                                    const foundKey = templateManager.i18n.findKeyForText(rawDecline);
+                                    if (foundKey) translatedDecline = templateManager.i18n.t(foundKey);
+                                }
+                                if (translatedAccept === rawAccept && templateManager && templateManager.i18n && typeof templateManager.i18n.findKeyForText === 'function') {
+                                    const foundKey = templateManager.i18n.findKeyForText(rawAccept);
+                                    if (foundKey) translatedAccept = templateManager.i18n.t(foundKey);
+                                }
+                            } catch (e) {
+                                // ignore lookup errors and fall back to earlier values
+                            }
+
+                            // Debug: show translated button labels before assignment
+                            try { console.log('[consent] translated button labels: decline=', translatedDecline, 'accept=', translatedAccept); } catch (e) {}
+
+                            // Use textContent to avoid inserting HTML into buttons. Fall back to original value if translation is empty.
+                            buttons[0].textContent = (translatedDecline && typeof translatedDecline === 'string') ? translatedDecline : rawDecline;
+                            buttons[1].textContent = (translatedAccept && typeof translatedAccept === 'string') ? translatedAccept : rawAccept;
+                            try { console.log('[consent] buttons after assignment: left=', buttons[0].textContent, 'right=', buttons[1].textContent); } catch (e) {}
                         } catch (e) {
                             // ignore and keep existing labels
                         }
