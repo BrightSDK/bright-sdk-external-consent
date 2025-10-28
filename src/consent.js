@@ -52,7 +52,6 @@ function createConsentModule(targetId, options = {}) {
         qrCode: "",
         title: "Bright SDK Consent",
         backgroundColor: "#FBEFCF",
-        benefitText: 'To use the app for free',
         accentColor: "#D36B2E",
         acceptTextColor: "#FFF",
         acceptButton: '',
@@ -62,8 +61,10 @@ function createConsentModule(targetId, options = {}) {
         outlineColor: "#9DA9E8",
         textColor: "#171717",
         footerTextColor: "#777",
-        declineButtonText: "Decline",
-        acceptButtonText: "Accept",
+        // use translation keys by default (fall back to literal text if key not found)
+        benefitText: 'desc_benefit_free',
+        declineButtonText: "i_disagree",
+        acceptButtonText: "i_agree",
         preview: false,
         simpleOptOut: false,
         language: 'en', // Default language
@@ -79,6 +80,18 @@ function createConsentModule(targetId, options = {}) {
     // Initialize template manager
     const templateManager = new TemplateManager();
     templateManager.setLanguage(settings.language);
+
+    // small translator helper: try to translate a key, fall back to the original string
+    const tr = (key) => {
+        try {
+            // templateManager.i18n.t may return the key itself when not found; keep that behavior
+            return templateManager.i18n && typeof templateManager.i18n.t === 'function'
+                ? templateManager.i18n.t(key)
+                : key;
+        } catch (e) {
+            return key;
+        }
+    };
 
     let container = null;
     let focusedIndex = 0;
@@ -142,6 +155,23 @@ function createConsentModule(targetId, options = {}) {
         container.className = "external-consent-container";
         container.tabIndex = -1;
 
+        // Apply language-specific class (e.g. 'lang-ru') to allow CSS tweaks per-language
+        try {
+            const curLang = (templateManager && templateManager.i18n && typeof templateManager.i18n.getCurrentLanguage === 'function')
+                ? templateManager.i18n.getCurrentLanguage()
+                : settings.language;
+            if (curLang && String(curLang).toLowerCase().startsWith('ru')) {
+                container.classList.add('lang-ru');
+            }
+        } catch (e) {
+            // ignore
+        }
+
+        // If simpleOptOut is enabled, add a class so CSS can position elements (buttons) appropriately
+        if (settings.simpleOptOut) {
+            container.classList.add('simple-opt-out-enabled');
+        }
+
         let qrCode = `<img class="qr-code" src="${settings.qrCode || qrBase64}" alt="QR Code">`;
 
         // Set CSS custom properties
@@ -159,13 +189,13 @@ function createConsentModule(targetId, options = {}) {
         const templateContext = {
             logo: settings.logo,
             title: settings.title,
-            benefitText: templateManager.i18n.t(settings.benefitText),
+            benefitText: tr(settings.benefitText),
             simpleOptOut: settings.simpleOptOut,
             status: 'disabled', // Default status for simple opt-out
             acceptButton: settings.acceptButton,
             declineButton: settings.declineButton,
-            acceptButtonText: templateManager.i18n.t(settings.acceptButtonText),
-            declineButtonText: templateManager.i18n.t(settings.declineButtonText),
+            acceptButtonText: tr(settings.acceptButtonText),
+            declineButtonText: tr(settings.declineButtonText),
             qrCode: settings.qrCode || qrBase64
         };
 
@@ -197,6 +227,13 @@ function createConsentModule(targetId, options = {}) {
              * @returns {Promise} - Resolves when the consent module is closed.
              */
             show: status => new Promise((resolve) => {
+                // Log immediate entry to show() so we can detect whether show() is called
+                // even when the later simpleOptOut branch is not reached.
+                try {
+                    console.log('[consent] show() called', { status, simpleOptOut: settings.simpleOptOut });
+                } catch (e) {
+                    // ignore environments where console isn't available
+                }
                 function cleanup() {
                     settings.onClose();
                     hide();
@@ -208,10 +245,108 @@ function createConsentModule(targetId, options = {}) {
 
                 setupContainer();
 
-                if (settings.simpleOptOut && status) {
-                    const statusElement = container.querySelector('.status');
-                    if (statusElement) {
-                        statusElement.textContent = status;
+                // Handle simple opt-out status rendering. Accept an explicit `status` argument
+                // but also gracefully handle cases where `status` is undefined by reading
+                // any existing inline .status text from the rendered template or using a default.
+                if (settings.simpleOptOut) {
+                    // Always use the single web_indexing_status key and inject a localized status value into the
+                    // {{status}} placeholder while preserving the inline <span class="status"> element.
+                    // Prefer the status <span> inside the simple-opt-out block so we don't accidentally
+                    // overwrite the top-level benefit paragraph. Templates are already translated
+                    // at this point and data-i18n-key attributes may have been removed, so select
+                    // by the rendered .status element if present.
+                    let statusPara = null;
+                    const statusSpan = container.querySelector('.simple-opt-out .status');
+                    if (statusSpan) {
+                        // Use the containing paragraph for full replacement
+                        statusPara = statusSpan.closest('p') || statusSpan.parentElement;
+                    } else {
+                        // Fallback: look for the simple-opt-out paragraph first, then any .text
+                        statusPara = container.querySelector('.simple-opt-out .text') || container.querySelector('.text');
+                    }
+
+                    if (statusPara) {
+                        // find span if present within the chosen paragraph
+                        const innerStatusSpan = statusPara.querySelector('.status');
+
+                        // Resolve the effective status: prefer the explicit `status` argument,
+                        // fall back to the existing .status text in the template, then to 'disabled'.
+                        let resolvedStatus = (status !== undefined && status !== null) ? status : undefined;
+                        if (resolvedStatus === undefined || resolvedStatus === null) {
+                            if (statusSpan && statusSpan.textContent) {
+                                resolvedStatus = statusSpan.textContent.trim();
+                            } else {
+                                // Default fallback when nothing provided
+                                resolvedStatus = 'disabled';
+                            }
+                        }
+
+                        const statusRaw = String(resolvedStatus);
+
+                        // Normalize the status token to a predictable key before translating.
+                        // Some callers pass values like 'Enabled'/'Disabled' (capitalized) or
+                        // boolean/other types — normalize to lowercase trimmed keys so
+                        // locale files like "enabled"/"disabled" are matched reliably.
+                        let statusKey = String(statusRaw).trim().toLowerCase();
+
+                        // Map common boolean-like or numeric indicators to semantic keys so
+                        // translations like "enabled"/"disabled" are matched.
+                        if (statusKey === 'true' || statusKey === '1') {
+                            statusKey = 'enabled';
+                        } else if (statusKey === 'false' || statusKey === '0') {
+                            statusKey = 'disabled';
+                        }
+
+                        // Try to translate the normalized status token (falls back to the original token)
+                        const statusTranslated = tr(statusKey) || tr(statusRaw);
+
+                        // Also log the computed values for easier inspection in the console.
+                        try {
+                            console.log('[consent] statusRaw:', statusRaw, 'statusKey:', statusKey, 'statusTranslated:', statusTranslated);
+                        } catch (e) {
+                            /* ignore logging errors in restricted environments */
+                        }
+
+                        // Prepare status HTML; preserve existing span attributes/styles but replace inner text
+                        let statusHtml;
+                        if (innerStatusSpan) {
+                            try {
+                                // replace inner text of the existing span outerHTML with translated text
+                                statusHtml = innerStatusSpan.outerHTML.replace(/>([\s\S]*?)</, `>${statusTranslated}<`);
+                            } catch (e) {
+                                statusHtml = `<span class="status">${statusTranslated}</span>`;
+                            }
+                        } else {
+                            statusHtml = `<span class="status">${statusTranslated}</span>`;
+                        }
+
+                        try {
+                            // Some i18n backends may escape HTML when replacing variables.
+                            // To ensure the prepared <span class="status"> HTML is preserved,
+                            // fetch the translated template and perform a safe string replace
+                            // of the {{status}} placeholder with our pre-built HTML.
+                            const translatedTemplate = templateManager.i18n.t('web_indexing_status');
+                            if (typeof translatedTemplate === 'string') {
+                                const final = String(translatedTemplate).replace(/\{\{\s*status\s*\}\}/g, statusHtml);
+                                try {
+                                    // Log the translated template and the final HTML we will insert
+                                    console.log('[consent] translatedTemplate:', translatedTemplate, 'finalHtml:', final);
+                                } catch (e) {}
+                                statusPara.innerHTML = final;
+
+                                try {
+                                    // Confirm what ended up in the DOM immediately after assignment
+                                    console.log('[consent] statusPara.innerHTML (after set):', statusPara.innerHTML);
+                                    console.log('[consent] container.innerHTML (snippet):', container.innerHTML.slice(0, 500));
+                                } catch (e) {}
+                            } else {
+                                // Fallback to using the translated token only
+                                statusPara.textContent = templateManager.i18n.t('web_indexing_status', { status: statusTranslated });
+                            }
+                        } catch (e) {
+                            // Fallback: plain text with translated token
+                            statusPara.textContent = templateManager.i18n.t('web_indexing_status', { status: statusTranslated });
+                        }
                     }
                 }
 
@@ -223,7 +358,19 @@ function createConsentModule(targetId, options = {}) {
                 container.focus();
 
                 if (!settings.preview) {
+
                     buttons = container.querySelectorAll(".button");
+
+                    // Ensure button labels are translated/updated in case the template used raw keys
+                    if (buttons && buttons.length >= 2) {
+                        try {
+                            // left button is Decline, right button is Accept per existing code
+                            buttons[0].textContent = tr(settings.declineButtonText || settings.declineButtonTextText);
+                            buttons[1].textContent = tr(settings.acceptButtonText || settings.acceptButtonText);
+                        } catch (e) {
+                            // ignore and keep existing labels
+                        }
+                    }
 
                      // Store click handlers for cleanup
                     buttons[0].clickHandler = () => {

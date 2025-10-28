@@ -1,4 +1,13 @@
 <div class="simple-opt-out">
-  <p class="text">Web indexing is <span class="status">{{status}}</span></p>
-  <p class="text"><span data-i18n-key="desc_opt_out">desc_opt_out</span> Press 5 for settings.</p>
+  <!-- Use a translation key for the whole sentence and pass the status as a variable -->
+  <p class="text" data-i18n-key="web_indexing_status" data-variables='{"status":"{{status}}"}'>
+    Web indexing is <span class="status">{{status}}</span>
+  </p>
+
+  <p class="text">
+    <span data-i18n-key="desc_opt_out">desc_opt_out</span>
+    <!-- Optional break for languages with long phrases (shown via CSS for specific languages) -->
+    <span class="desc-break" aria-hidden="true"><br></span>
+    <span data-i18n-key="out_out_simple">out_out_simple</span>
+  </p>
 </div>

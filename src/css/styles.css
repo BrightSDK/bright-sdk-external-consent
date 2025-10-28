@@ -20,6 +20,19 @@
     z-index: 9998;
 }
 
+/* Make the dialog a vertical flex container so content naturally pushes buttons to the bottom */
+.external-consent-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* (cleanup) Dialog-wide simple-opt-out scaling removed; prefer per-element sizing */
+
+/* small opt-out notification: global font-size at 90% to avoid layout scaling */
+.external-consent-simple-opt-out {
+    font-size: 80%;
+}
+
 .external-consent-container .header {
     display: block;
     display: -webkit-box;
@@ -56,7 +69,9 @@
 }
 
 .external-consent-container .body {
-    height: 134px;
+    /* allow body to grow so it pushes buttons down */
+    flex: 1 1 auto;
+    min-height: 134px; /* preserve previous minimum */
     align-self: stretch;
     padding: 20px;
     line-height: 28px;
@@ -88,10 +103,11 @@
 }
 
 .external-consent-container .buttons {
-    padding-top: 60px;
+    /* let buttons sit at the bottom by using auto top margin */
     margin: 0 auto;
+    margin-top: auto;
     width: 575px;
-    margin-top: 20px;
+    padding-top: 10px; /* small buffer above buttons */
     display: block;
     display: -webkit-box;
     display: -webkit-flex;
@@ -106,6 +122,17 @@
     justify-content: space-between;
     gap: 15px;
     text-align: center; /* Fallback */
+
+
+}
+
+/* When simple-opt-out is enabled, push the buttons lower to avoid overlap with opt-out text */
+.external-consent-container.simple-opt-out-enabled .buttons {
+    /* When simple-opt-out is enabled, keep a modest buffer above buttons to avoid overlap.
+       IMPORTANT: do NOT override margin-top here — leave the 'margin-top: auto' from
+       the main .buttons rule so buttons remain anchored to the bottom. */
+    padding-top: 10px; /* modest vertical space before buttons for simpleOptOut */
+    /* margin-top intentionally not set so margin-top: auto remains in effect */
 }
 
 .external-consent-container button.button {
@@ -233,7 +260,7 @@
 }
 
 .external-consent-simple-opt-out {
-    font-size: 17px;
+    font-size: 90%;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     position: fixed;
     bottom: 20px;
@@ -256,4 +283,29 @@
 .external-consent-simple-opt-out-exit-active {
     opacity: 0;
     transform: translateY(20px);
+}
+
+/* Conditional line-break after desc_opt_out for languages with long phrases.
+   The template contains a <span class="desc-break"><br></span> placed after the
+   desc_opt_out span and this rule will make it visible only when the container
+   language matches certain long-language codes or when a language-specific
+   class is present (fallbacks for different setups). */
+.desc-break {
+    display: none;
+    line-height: 0; /* keep the single-break compact */
+}
+
+.external-consent-container.lang-ru .desc-break,
+.external-consent-container.lang-de .desc-break,
+.external-consent-container.lang-fr .desc-break,
+.external-consent-container.lang-pl .desc-break,
+.external-consent-container.lang-cs .desc-break,
+.external-consent-container.lang-it .desc-break,
+.external-consent-container.lang-es .desc-break,
+.external-consent-container[lang^="ru"] .desc-break,
+.external-consent-container[lang^="de"] .desc-break,
+.external-consent-container:lang(ru) .desc-break,
+.external-consent-container:lang(de) .desc-break {
+    display: inline-block;
+    margin: 6px 0; /* small vertical spacing */
 }

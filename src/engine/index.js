@@ -59,8 +59,38 @@ class TemplateManager {
                 }
             }
 
-            const translation = this.i18n.t(key, variables);
-            element.textContent = translation;
+            // Detect inline placeholder elements (e.g. <span class="status")
+            const inlineStatusEl = element.querySelector('.status');
+
+            // If an inline status element exists, pass its outerHTML as the interpolation value
+            // so the i18n system returns HTML that already contains the <span class="status"> node.
+            // Otherwise pass variables as-is.
+            let translation;
+            try {
+                if (inlineStatusEl) {
+                    const varsWithHtml = Object.assign({}, variables, { status: inlineStatusEl.outerHTML });
+                    translation = this.i18n.t(key, varsWithHtml);
+
+                    // Insert as HTML because we intentionally provided HTML in the variables.
+                    if (typeof translation === 'string') {
+                        element.innerHTML = translation;
+                    } else {
+                        element.innerHTML = String(translation);
+                    }
+                } else {
+                    // No inline HTML to preserve — safe to set as textContent to avoid accidental HTML injection.
+                    translation = this.i18n.t(key, variables);
+                    element.textContent = typeof translation === 'string' ? translation : String(translation);
+                }
+            } catch (e) {
+                // Fallback: set textContent with whatever we were given
+                try {
+                    element.textContent = String(this.i18n.t(key, variables));
+                } catch (er) {
+                    element.textContent = '';
+                }
+            }
+
             element.removeAttribute('data-i18n-key');
             element.removeAttribute('data-variables');
         });
