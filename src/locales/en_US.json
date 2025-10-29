@@ -53,7 +53,6 @@
     "desc_main_app_name": "Your use of {placeholder:app_name/} is free in return for allowing {url}Bright Data{/url} to occasionally use your device's free resources and IP address to download public web data from the Internet. Bright Data values your trust and takes every measure possible to protect your privacy and personal data. Bright Data understands the security matters at stake in sharing your IP address and monitors all of its network traffic to ensure your safety. Bright Data {tooltip:approved}will only use{/tooltip} your IP address for approved business-related use cases and {tooltip:malicious}never{/tooltip} for unauthorized cases. None of your personal information is accessed or collected except your IP address.",
     "desc_main_benefit": "To get {placeholder:benefit/}, you are allowing {url}Bright Data{/url} to occasionally use your device's free resources and IP address to download public web data from the Internet. Bright Data values your trust and takes every measure possible to protect your privacy and personal data. Bright Data understands the security matters at stake in sharing your IP address and monitors all of its network traffic to ensure your safety. Bright Data {tooltip:approved}will only use{/tooltip} your IP address for approved business-related use cases and {tooltip:malicious}never{/tooltip} for unauthorized cases. None of your personal information is accessed or collected except your IP address.",
     "desc_opt_out": "You can opt-out anytime.",
-    "web_indexing_status": "Web indexing is {{status}}.",
     "tt_approved": "Your IP address WILL be used for cases such as:",
     "tt_approved_1": "Support academic research",
     "tt_approved_2": "Help brands track sites selling fake products",
@@ -87,6 +86,8 @@
     "mob_main_1_no_benefit": "To support {placeholder:app_name/}, please allow web indexing by {url}Bright Data{/url} to use your device’s free resources and IP address to download {url}public web data{/url} from the Internet while you are using {placeholder:my_app/}.",
     "mob_main_4": "Bright Data does not track you.",
     "scan_qr": "Scan the QR Code to learn more about Bright Data policy and ethical usage",
+    "accept": "Accept",
+    "decline": "Decline",
     "desc_main_3": "Bright Data {tooltip:approved}will only use{/tooltip} your IP address for approved business-related use cases and {tooltip:malicious}never{/tooltip} for unauthorized cases. None of your personal information is accessed or collected except your IP address.",
     "desc_this_app": "this app",
     "desc_benefit_free": "To use the app for free",
@@ -96,5 +97,8 @@
     "opt_out_settings": "Opt out is available from app settings",
     "benefit_text_hires": "To enjoy high resolution videos",
     "out_out_simple": "Press 5 on your TV remote for settings",
-    "benefit_game_ads": "To enjoy this game without ads"
+    "benefit_game_ads": "To enjoy this game without ads",
+    "web_indexing_status": "Web indexing is {{status}}.",
+    "enabled": "enabled",
+    "disabled": "disabled"
 }

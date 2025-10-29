@@ -86,6 +86,8 @@
     "mob_main_1_no_benefit": "Um {placeholder:app_name/} zu unterstützen, erlauben Sie {url}Bright Data{/url}, die freien Ressourcen und IP-Adresse Ihres Geräts zu nutzen, um {url}öffentliche Webdaten{/url} aus dem Internet herunterzuladen, während Sie {placeholder:my_app/} nutzen.",
     "mob_main_4": "Bright Data verfolgt Ihre Aktivitäten nicht.",
     "scan_qr": "Einfach den QR-Code scannen, um mehr über die ethische Nutzung durch Bright Data zu erfahren",
+    "accept": "Ich stimme zu",
+    "decline": "Ich stimme nicht zu",
     "desc_main_3": "Bright Data {tooltip:approved}verwendet Ihre IP-Adresse nur{/tooltip} für zugelassene Verwendungszwecke und {tooltip:malicious}niemals{/tooltip} für nicht autorisierte Verwendungen. Mit Ausnahme Ihrer IP-Adresse werden keine Ihrer personenbezogenen Daten abgerufen oder gesammelt.",
     "desc_this_app": "diese App",
     "desc_benefit_free": "Um die App kostenlos zu nutzen,",

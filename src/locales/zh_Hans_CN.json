@@ -86,6 +86,8 @@
     "mob_main_1_no_benefit": "如支持 {placeholder:app_name/}，请允许 {url}Bright Data 网络索引{/url}在您使用 {placeholder:my_app/} 时，使用您设备的空闲资源和 IP 地址从互联网下载{url}公共网络数据{/url}。",
     "mob_main_4": "Bright Data 不会追踪您。",
     "scan_qr": "扫描二维码，了解 Bright Data 网络索引的更多信息",
+    "accept": "我同意",
+    "decline": "我並不同意",
     "desc_main_3": "Bright Data{tooltip:approved}將僅對已準予的業務相關用例使用{/tooltip}你的IP地址，而{tooltip:malicious}從不會{/tooltip}容許未授權用例使用。除卻你的IP地址外，你的任何個人資料均不會被存取或收集。",
     "desc_this_app": "应用程序",
     "desc_benefit_free": "免费使用应用程序",

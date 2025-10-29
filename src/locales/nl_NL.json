@@ -86,6 +86,8 @@
     "mob_main_1_no_benefit": "Als je {placeholder:app_name/} wilt ondersteunen, kun je {url}webindexering door BrightData{/url} toestaan, om de beschikbare bronnen en het IP-adres van je apparaat te gebruiken om {url}openbare webgegevens{/url} van het internet te downloaden terwijl je {placeholder:my_app/} gebruikt.",
     "mob_main_4": "Bright SDK traceert je niet.",
     "scan_qr": "Scan de QR-code voor meer informatie over webindexering door Bright Data",
+    "accept": "Ik ga akkoord",
+    "decline": "Ik ga niet akkoord",
     "desc_main_3": "Bright Data {tooltip:approved}gebruikt je IP-adres alleen{/tooltip} voor goedgekeurde zakelijke doeleinden en {tooltip:malicious}nooit{/tooltip} voor ongeoorloofde doeleinden. Behalve je IP-adres worden er geen persoonlijke gegevens van je bekeken of verzameld.",
     "desc_this_app": "deze app",
     "desc_benefit_free": "Om de app gratis te gebruiken",

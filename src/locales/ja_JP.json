@@ -86,6 +86,8 @@
     "mob_main_1_no_benefit": "{placeholder:app_name/}に対応するため、{url}Bright Dataによるウェブサイトのインデックス作成{/url}がお使いのデバイスの空きリソースとIPアドレスを使用して、{placeholder:my_app/}の使用中にインターネットから{url}公開ウェブデータ{/url}をダウンロードできるようにしてください。",
     "mob_main_4": "Bright Dataがお客様を追跡することはありません。",
     "scan_qr": "QRコードをスキャンすると、Bright Dataによるウェブサイトのインデックス作成に関する詳細をご覧いただけます。",
+    "accept": "同意します",
+    "decline": "同意しません",
     "desc_main_3": "Bright Dataは、お客様のIPアドレスを承認されたビジネス関連のユースケースに{tooltip:approved}のみ使用{/tooltip}し、不正な用途には{tooltip:malicious}一切{/tooltip}使用しません。お客様の個人情報には、IPアドレスを除き、一切アクセスしたり収集したりすることはありません。",
     "desc_this_app": "このアプリ",
     "desc_benefit_free": "無料でアプリを使用するには",

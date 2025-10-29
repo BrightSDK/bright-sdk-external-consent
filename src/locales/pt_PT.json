@@ -86,6 +86,8 @@
     "mob_main_1_no_benefit": "Para suportar a {placeholder:app_name/}, permita que a indexação web da {url}Bright Data{/url} utilize os recursos livres e o endereço IP do seu dispositivo para descarregar {url}dados web públicos{/url} da Internet enquanto estiver a utilizar a {placeholder:my_app/}.",
     "mob_main_4": "A Bright Data não o monitoriza.",
     "scan_qr": "Digitalize o código QR para saber mais sobre indexação web da Bright Data",
+    "accept": "Concordo",
+    "decline": "Discordo",
     "desc_main_3": "A Bright Data {tooltip:approved}irá apenas utilizar{/tooltip} o seu endereço IP para os casos de uso aprovados relacionados com a sua atividade. Não acedemos nem recolhemos nenhuma outra informação pessoal sua, para além do seu endereço IP.",
     "desc_this_app": "esta aplicação",
     "desc_benefit_free": "Para usar a aplicação gratuitamente",

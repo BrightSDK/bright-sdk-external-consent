@@ -86,6 +86,8 @@
     "mob_main_1_no_benefit": "{placeholder:app_name/} uygulamasını desteklemek için, siz {placeholder:my_app/} uygulamasını kullanırken lütfen {url}Bright Data web indekslemesinin{/url} cihazınızın kullanılabilir kaynaklarından ve IP adresinden yararlanarak {url}herkese açık web verilerini{/url} İnternetten indirmesine izin verin.",
     "mob_main_4": "Bright Data sizi takip etmez.",
     "scan_qr": "Bright Data'nın web indekslemesi hakkında daha fazla bilgi edinmek için QR Kodunu tarayın",
+    "accept": "Kabul ediyorum",
+    "decline": "Katılmıyorum",
     "desc_main_3": "BrightData, IP adresinizi {tooltip:approved}yalnızca{/tooltip} iş amaçlı, onaylanmış kullanım senaryoları kapsamında kullanır, {tooltip:malicious}hiçbir zaman{/tooltip} izin verilmeyen amaçlar için kullanmaz. IP adresiniz dışında kesinlikle hiçbir kişisel bilginize erişilmez veya bilgi toplanmaz.",
     "desc_this_app": "bu uygulama",
     "desc_benefit_free": "Uygulamayı ücretsiz kullanmak için",

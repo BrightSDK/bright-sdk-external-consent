@@ -86,6 +86,8 @@
     "mob_main_1_no_benefit": "Pour permettre la prise en charge de {placeholder:app_name/}, veuillez autoriser {url}l'indexation Web par Bright Data{/url} pour utiliser les ressources libres et l'adresse IP de votre appareil afin de télécharger des {url}données Web publiques{/url} sur Internet pendant que vous utilisez {placeholder:my_app/}.",
     "mob_main_4": "Bright Data n'effectue aucun suivi vous concernant.",
     "scan_qr": "Scannez le code QR pour obtenir davantage d'informations sur l'indexation Web par Bright Data",
+    "accept": "J'accepte",
+    "decline": "Je ne suis pas d'accord",
     "desc_main_3": "Bright Data {tooltip:approved}utilisera votre adresse IP uniquement{/tooltip} pour les cas d'utilisation professionnels approuvés et {tooltip:malicious}ne l'utilisera jamais{/tooltip} pour ceux non autorisés. Hormis votre adresse IP, aucune de vos informations personnelles n'est consultée ou collectée.",
     "desc_this_app": "cette application",
     "desc_benefit_free": "Pour utiliser l'application gratuitement",
