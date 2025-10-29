@@ -63,8 +63,8 @@ function createConsentModule(targetId, options = {}) {
         footerTextColor: "#777",
         // use translation keys by default (fall back to literal text if key not found)
         benefitText: 'desc_benefit_free',
-        declineButtonText: "accept",
-        acceptButtonText: "decline",
+        declineButtonText: "decline",
+        acceptButtonText: "accept",
         preview: false,
         simpleOptOut: false,
         language: 'en', // Default language
