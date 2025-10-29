@@ -1,14 +1,14 @@
 {
   "package": "bright-sdk-external-consent",
-  "generatedAt": "2025-10-28T19:09:52.102Z",
+  "generatedAt": "2025-10-29T06:13:18.925Z",
   "files": [
     {
       "path": "consent.bundle.js",
-      "size": 198303,
+      "size": 199077,
       "type": "js"
     }
   ],
   "type": "major",
   "version": "1",
-  "fullVersion": "1.0.16"
+  "fullVersion": "1.0.17"
 }
